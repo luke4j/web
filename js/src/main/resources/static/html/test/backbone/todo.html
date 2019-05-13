@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>backbone</title>
+
+<!--    <link href="../../doc/backbone/examples/todos/todos.css" rel="stylesheet">-->
+
+    <script src="../../../js/json2.js"></script>
+    <script src="../../../js/jquery.js"></script>
+    <script src="../../../js/underscore.js"></script>
+    <script src="../../../js/backbone.js"></script>
+    <script src="./todo.js"></script>
+</head>
+<body>
+
+    <div id="todoapp">
+
+        <header>
+            <h1>todo app</h1>
+            <input id="new-todo" type="text" placeholder="请填写内容">
+        </header>
+
+
+        <section id="main">
+            <label for="toggle-all" > 全选</label>
+            <input id="toggle-all" typeof="checkbox">
+
+            <ul id="todo-list"></ul>
+        </section>
+
+        <footer >
+            <a id="clear-completed">清除 </a>
+            <div id="todo-count"></div>
+        </footer>
+    </div>
+
+</body>
+</html>
