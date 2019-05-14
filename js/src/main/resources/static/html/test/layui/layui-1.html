@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>layui-1</title>
+    <link href="../../../js/ui/layui/css/layui.css">
+
+    <script src="../../../js/json2.js"></script>
+    <script src="../../../js/jquery.js"></script>
+    <script src="../../../js/underscore.js"></script>
+    <script src="../../../js/backbone.js"></script>
+    <script src="../../../js/ui/layui/layui.js"></script>
+
+    <script>
+        //一般直接写在一个js文件中
+        layui.use(['layer', 'form'], function(){
+            var layer = layui.layer
+                ,form = layui.form;
+            layer.msg('Hello World');
+        });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
