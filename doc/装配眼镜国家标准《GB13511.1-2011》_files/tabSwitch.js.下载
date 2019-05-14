@@ -1,0 +1,33 @@
+//<!--
+//function showTab(m,n){
+//	var morelink=new Array();
+//	var tli=document.getElementById("tabTitle"+m).getElementsByTagName("li");
+//	for(i=0;i<tli.length;i++){
+//		tli[i].className=i==n?"cur":"";
+//		document.getElementById("tabContent"+m+"_"+i).style.display=i==n?"block":"none";
+//	}
+//}
+////-->
+
+function showSearch(n){
+	var sa=document.getElementById("search").getElementsByTagName("a");
+	for(i=0;i<sa.length;i++){
+		sa[i].className=i==n?"seach_on":"";
+		if(document.getElementById("search"+i) != null){
+			document.getElementById("search"+i).style.display=i==n?"block":"none";
+		}
+	}
+}
+
+
+function showTab(m,n,nodeStr){
+	var morelink=new Array();
+	var tli=document.getElementById("tabTitle"+m).getElementsByTagName(nodeStr);
+	for(i=0;i<tli.length;i++){
+		tli[i].className=i==n?"cur":"";
+		if(document.getElementById("tabContent"+m+"_"+i) != null){
+			document.getElementById("tabContent"+m+"_"+i).style.display=i==n?"block":"none";
+		}
+	}
+}
+

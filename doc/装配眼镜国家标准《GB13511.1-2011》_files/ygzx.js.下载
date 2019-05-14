@@ -1,0 +1,52 @@
+
+		//ÏÂÀ­²Ëµ¥
+        $(document).on("mouseover", ".header .nav ul li", function(){
+			$(this).children("dl").show();	
+        })
+/*		$(document).on("mousemove", ".header .nav ul li dl", function(){
+			$(this).show();	
+        })
+*/        $(document).on("mouseout", ".header .nav ul li", function(){
+			$(this).children("dl").hide();
+		})
+/*		$(document).on("mouseout", ".header .nav ul li dl", function(){
+			$(this).children("dl").hide();
+		})
+*/
+
+		//
+        $(document).on("mousemove", ".intro .tabContent .pic1", function(){
+			$(this).children(".cover").show();
+			$(this).children(".text1").show();
+        })
+        $(document).on("mouseout", ".intro .tabContent .pic1", function(){
+			$(this).children(".cover").hide();
+			$(this).children(".text1").hide();
+        })
+		$(document).on("mousemove", ".intro .tabContent .pic2 ul li", function(){
+			$(this).children(".cover").show();
+			$(this).children(".text1").show();
+        })
+        $(document).on("mouseout", ".intro .tabContent .pic2 ul li", function(){
+			$(this).children(".cover").hide();
+			$(this).children(".text1").hide();
+        })
+
+$(document).ready(function(){
+	var hname=window.location.host;
+	$("a").each(function() { 
+		this.href = this.href.replace(/www\.eyescare\.cn/, hname);
+		this.href = this.href.replace(/www\.02087330000\.com/, hname);
+		this.href = this.href.replace(/care\.gzzoc\.com/, hname);
+	}); 
+	$(".flexslider li").each(function() {
+		var url = $(this).attr("onclick");
+		if (url){
+			url = url.replace(/www\.eyescare\.cn/, hname);
+			url = url.replace(/www\.02087330000\.com/, hname);
+			url = url.replace(/care\.gzzoc\.com/, hname);
+			$(this).attr("onclick",url);
+		}
+	});
+});
+
