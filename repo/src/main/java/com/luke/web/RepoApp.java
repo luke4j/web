@@ -1,4 +1,4 @@
-package com.luke.web.repo;
+package com.luke.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

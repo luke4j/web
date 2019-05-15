@@ -17,13 +17,14 @@
         <module>customer</module>
         <module>staff</module>
         <module>admin</module>
-        <module>dep</module>
         <module>space</module>
         <module>sell</module>
         <module>customer-uphold</module>
         <module>store</module>
         <module>distribution</module>
         <module>process</module>
+        <module>tj</module>
+        <module>tool</module>
     </modules>
 
 
@@ -102,6 +103,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                   <jvmArguments>-Dfile.encoding=UTF-8</jvmArguments>
+                </configuration>
             </plugin>
         </plugins>
     </build>
