@@ -1,4 +1,4 @@
-package com.luke.web.tool;
+package com.luke.web.tool.web;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
