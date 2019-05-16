@@ -7,9 +7,14 @@ public class AppException extends RuntimeException {
 
     private static final Logger logger = LoggerFactory.getLogger(AppException.class) ;
 
-    public AppException (String msg){
+    private AppException (String msg){
         super(msg);
         logger.error("AppException msg is "+msg);
+    }
+
+    public static AppException create(String msg){
+        AppException ae = new AppException(msg) ;
+        return ae ;
     }
 
 }
