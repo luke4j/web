@@ -49,9 +49,10 @@ public class LogAop {
         }
         Object obj = jp.proceed(jp.getArgs()) ;
         Date end = new Date() ;
-        log.debug("==========>:end time "+ LK.DateToStr(end,"yyyy-MM-dd HH:mm:ss SSS"));
-        log.debug("==========>:time is "+(end.getTime()-start.getTime())+"\n\r");
-
+        if(log!=null&& log.isDebugEnabled()){
+            log.debug("==========>:end time "+ LK.DateToStr(end,"yyyy-MM-dd HH:mm:ss SSS"));
+            log.debug("==========>:time is "+(end.getTime()-start.getTime())+"\n\r");
+        }
         return obj ;
     }
 

@@ -9,4 +9,7 @@ public interface IWelcomeController {
 
     @RequestMapping(path = "/",method = RequestMethod.GET)
     String gotoLogin1(Model model) throws AppException;
+
+    @RequestMapping(path = "work",method = RequestMethod.GET)
+    String work(Model model) throws AppException;
 }

@@ -1,14 +1,38 @@
 package com.luke.web.vo.login;
 
-public class VOoutMsg {
+import com.luke.web.model.Lgn_Msg;
+import com.luke.web.vo.VOOut;
+
+public class VOoutMsg extends VOOut {
+
+
+    public VOoutMsg() {}
+
+    public VOoutMsg(Lgn_Msg msg){
+        this.id = msg.getId() ;
+        this.title = msg.getC_title() ;
+        this.content = msg.getC_content() ;
+        this.read = msg.getC_read() ;
+        this.type = msg.getC_type() ;
+    }
 
     Long id ;
     /**消息标题*/
     String title ;
     /**消息内家*/
     String content ;
+    String type  ;
     /**是否已读*/
     Boolean read ;
+
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Long getId() {
         return id;

@@ -1,13 +1,13 @@
 package com.luke.web.vo.login;
 
-import com.luke.web.vo._V;
+import com.luke.web.vo.VOIn;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotEmpty;
 
 @ApiModel
-public class VOInLogin implements _V {
+public class VOInLogin extends VOIn {
 
     @ApiModelProperty(value = "登录名" ,required = true)
     @NotEmpty(message = "登录名不能为空")

@@ -1,6 +1,8 @@
 package com.luke.web.vo.login;
 
-public class VOoutLogin {
+import com.luke.web.vo.VOOut;
+
+public class VOoutLogin extends VOOut {
 
     /**登录指令牌*/
     String token ;

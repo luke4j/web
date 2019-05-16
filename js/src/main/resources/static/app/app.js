@@ -25,11 +25,11 @@ require.config({
             exports:'backbone'
         },
         layui:{
-            deps:['jquery','css!js/ui.layui/css/layui.css'],
+            deps:['jquery','css!js/ui/layui/css/layui.css'],
             exports:'layui'
         },
         ls:{
-            deps:['jquery','underscore','backbone','json2','md5','layui','css!js/ui.layui/css/layui.css'],
+            deps:['jquery','underscore','backbone','json2','md5','layui','css!js/ui/layui/css/layui.css'],
             exports:'ls'
         }
     }

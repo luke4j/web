@@ -1,19 +1,21 @@
 package com.luke.web.vo.login;
 
+import com.luke.web.vo.VOOut;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class VOoutInfo {
+public class VOoutInfo extends VOOut {
 
     /**登录人姓名*/
     String staffName ;
     /**登录人ID*/
-    String staffId ;
+    Long staffId ;
 
     /**默认职能单位名*/
     String defSpaceName ;
     /**默认职能单位ID*/
-    String defSpaceId ;
+    Long defSpaceId ;
     /**实际职位*/
     String p_zhiWei ;
     /**角色名*/
@@ -39,11 +41,11 @@ public class VOoutInfo {
         this.srcs = srcs;
     }
 
-    public String getDefSpaceId() {
+    public Long getDefSpaceId() {
         return defSpaceId;
     }
 
-    public void setDefSpaceId(String defSpaceId) {
+    public void setDefSpaceId(Long defSpaceId) {
         this.defSpaceId = defSpaceId;
     }
 
@@ -55,11 +57,11 @@ public class VOoutInfo {
         this.staffName = staffName;
     }
 
-    public String getStaffId() {
+    public Long getStaffId() {
         return staffId;
     }
 
-    public void setStaffId(String staffId) {
+    public void setStaffId(Long staffId) {
         this.staffId = staffId;
     }
 

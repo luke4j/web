@@ -23,4 +23,11 @@ public class WelcomeController implements IWelcomeController {
         model.addAttribute("systime",new Date()) ;
         return "login";
     }
+
+    @Override
+    public String work(Model model) throws AppException {
+        model.addAttribute("sysname",sysname) ;
+        model.addAttribute("systime",new Date()) ;
+        return "work";
+    }
 }

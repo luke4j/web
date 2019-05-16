@@ -1,8 +1,30 @@
 package com.luke.web.vo.login;
 
+import com.luke.web.model.Lgn_Item;
+import com.luke.web.vo.VOOut;
+import org.springframework.beans.BeanUtils;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class VOoutSrc {
+public class VOoutSrc extends VOOut {
+
+    public VOoutSrc (){}
+    public VOoutSrc(Lgn_Item item){
+        dg(item,this) ;
+    }
+
+    public void dg (Lgn_Item item,VOoutSrc ths){
+        BeanUtils.copyProperties(item,ths);
+        if(item.getChild()!=null&&item.getChild().size()>0){
+            ths.setChild(new ArrayList<VOoutSrc>(item.getChild().size()));
+            for(Lgn_Item it :item.getChild()){
+                VOoutSrc src = new VOoutSrc();
+                ths.getChild().add(src) ;
+                dg(it,src) ;
+            }
+        }
+    }
 
     /**功能名*/
     String c_text ;

@@ -11,20 +11,16 @@ public class ActResult<T> {
 
     @JsonIgnore
     HttpServletRequest request ;
-    public ActResult(){}
     public void setRequest(HttpServletRequest request) {
         this.request = request;
         this.url = request.getRequestURI() ;
         this.params = request.getParameterMap() ;
     }
 
-    public  ActResult(HttpServletRequest request ){
-        this.url = request.getRequestURI() ;
-        this.params = request.getParameterMap() ;
-    }
 
 
-
+    /**操作目地*/
+    String doing ;
     String url ;
     Map<String,String[]> params ;
     String fun ;
@@ -52,6 +48,14 @@ public class ActResult<T> {
 
     /**异常信息*/
     String errMsg = "";
+
+    public String getDoing() {
+        return doing;
+    }
+
+    public void setDoing(String doing) {
+        this.doing = doing;
+    }
 
     public String getUrl() {
         return url;

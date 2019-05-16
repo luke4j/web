@@ -36,9 +36,6 @@ ls.ajax = function(p){
         },
         error:function(XMLHttpRequest, textStatus, errorThrown){  //请求异常
 
-        },
-        success:function(data, textStatus, jqXHR){ //请求成功
-
         }
     } ;
     if(!p){
@@ -49,6 +46,24 @@ ls.ajax = function(p){
     }else if(typeof(p)=="object"){
         _p = $.extend(_p,p) ;
     }
+    var succ ;
+    if(_p.success&&  typeof(_p.success)=="function" )
+        succ = _p.success ;
+
+    _p.success = function(resp, textStatus, jqXHR){ //请求成功
+        if(resp.success=="true"&&succ){
+            succ(resp, textStatus, jqXHR) ;
+        }else{
+            layui.use("layer",function(){
+                var layer = layui.layer ;
+                layer.open({
+                    title: '异常',
+                    content: resp.errMsg
+                });
+            }) ;
+        }
+    }
+
     $.ajax(_p) ;
 } ;
 

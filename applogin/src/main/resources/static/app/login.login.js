@@ -50,10 +50,10 @@ define(function(require){
         login:function(){
             if(this.isValid()){
                 ls.ajax({
-                    url:'',
+                    url:'login/login.act',
                     data:this.attributes,
                     success:function(reps){
-
+                        window.location.href=window.location.href+"work" ;
                     }
                 }) ;
             }
@@ -89,8 +89,10 @@ define(function(require){
         },
         ipt_password_blur_handler:function(je){
             var ps = $(je.currentTarget).val() ;
-            ps = hex_md5(ps) ;
-            $(je.currentTarget).val(ps) ;
+            if(ps){
+                ps = hex_md5(ps) ;
+                $(je.currentTarget).val(ps) ;
+            }
         },
         dv_rememberMe_click_handler:function(je){
             var pic = document.getElementById('picture');
