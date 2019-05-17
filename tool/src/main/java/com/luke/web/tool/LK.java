@@ -8,12 +8,12 @@ import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
 import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
 import net.sourceforge.pinyin4j.format.HanyuPinyinVCharType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.apache.commons.jexl2.Expression;
 import org.apache.commons.jexl2.JexlContext;
 import org.apache.commons.jexl2.JexlEngine;
 import org.apache.commons.jexl2.MapContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
 import java.security.MessageDigest;
@@ -29,12 +29,12 @@ import java.util.regex.Pattern;
 public class LK {
     private static Logger logger = LoggerFactory.getLogger(LK.class) ;
 
-    public static String uuid() throws Exception{
+    public static String uuid() throws AppException{
         String uuid = UUID.randomUUID().toString();
         return uuid.replaceAll("-", "");
     }
 
-    public static String vilidateCode(int i) throws Exception{
+    public static String vilidateCode(int i) throws AppException{
         StringBuffer sb = new StringBuffer() ;
         String tmp = Math.random()*10 +"";
         for (int j=2 ; j<tmp.length();j++){
@@ -50,7 +50,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Boolean StrIsEmpty(String str) throws Exception{
+    public static Boolean StrIsEmpty(String str) throws AppException {
         return (str==null||str.trim().equals(""))?true:false ;
     }
 
@@ -59,7 +59,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Boolean StrIsNotEmpty(String str) throws Exception{
+    public static Boolean StrIsNotEmpty(String str) throws AppException{
         return !StrIsEmpty(str) ;
     }
 
@@ -69,7 +69,7 @@ public class LK {
      * @param def
      * @return
      */
-    public static String StrIsEmptyDo(String str,String def) throws Exception{
+    public static String StrIsEmptyDo(String str,String def) throws AppException{
         return StrIsEmpty(str)?def:str.trim() ;
     }
     /**
@@ -77,7 +77,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Boolean StrIsNum(String str)throws Exception{
+    public static Boolean StrIsNum(String str)throws AppException{
         if(StrIsEmpty(str)) return false ;
         str = str.trim() ;
         if(str.startsWith(".")) return false ;
@@ -92,7 +92,7 @@ public class LK {
      * @param format
      * @return
      */
-    public static Boolean StrIsDate(String str,String format)throws Exception{
+    public static Boolean StrIsDate(String str,String format)throws AppException{
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         try {
             sdf.parse(str);
@@ -108,7 +108,7 @@ public class LK {
      * @param format
      * @return
      */
-    public static Date StrToDate(String str,String format) throws Exception{
+    public static Date StrToDate(String str,String format) throws AppException{
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         try {
             return sdf.parse(str);
@@ -122,7 +122,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Date StrToDate_YMD(String str)throws Exception {
+    public static Date StrToDate_YMD(String str)throws AppException {
         if(StrIsDate(str, "yyyy-MM-dd")){
             return StrToDate(str,"yyyy-MM-dd") ;
         }else{
@@ -135,7 +135,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static Date StrToDate_YMDHMS(String str)throws Exception {
+    public static Date StrToDate_YMDHMS(String str)throws AppException {
         if(StrIsDate(str,"yyyy-MM-dd hh:mm:ss")){
             return StrToDate(str,"yyyy-MM-dd hh:mm:ss") ;
         }else{
@@ -153,7 +153,7 @@ public class LK {
      * @param format
      * @return
      */
-    public static String DateToStr(Date date ,String format)throws Exception{
+    public static String DateToStr(Date date ,String format)throws AppException{
         if(date == null)
             return null ;
         SimpleDateFormat sdf = new SimpleDateFormat(format);
@@ -165,7 +165,7 @@ public class LK {
      * @param date
      * @return
      */
-    public static String DateToStr_Y(Date date)throws Exception{
+    public static String DateToStr_Y(Date date)throws AppException{
         if(date == null)
             return null ;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
@@ -177,7 +177,7 @@ public class LK {
      * @param date
      * @return
      */
-    public static String DateToStr_YM(Date date)throws Exception{
+    public static String DateToStr_YM(Date date)throws AppException{
         if(date == null)
             return null ;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
@@ -189,7 +189,7 @@ public class LK {
      * @param date
      * @return
      */
-    public static String DateToStr_YMD(Date date)throws Exception{
+    public static String DateToStr_YMD(Date date)throws AppException{
         if(date == null)
             return null ;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -203,7 +203,7 @@ public class LK {
      * @param str
      * @return
      */
-    public static String Lens(String str)throws Exception{
+    public static String Lens(String str)throws AppException{
         if(StrIsNum(str)){
             if(Float.parseFloat(str)==0)
                 return "0" ;
@@ -224,7 +224,7 @@ public class LK {
      * @param data
      * @return
      */
-    public static String toLensFormat(Float data) throws Exception{
+    public static String toLensFormat(Float data) throws AppException{
         String str = data+"" ;
         return Lens(str) ;
     }
@@ -236,7 +236,7 @@ public class LK {
      * @return String
      * @author llg
      */
-    public static String NameToPingYinLong(String name) throws Exception{
+    public static String NameToPingYinLong(String name) throws AppException{
         if (name == null || name.trim().equals(""))
             return "";
         String rt = "";
@@ -255,6 +255,7 @@ public class LK {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            throw AppException.create(e.getMessage()) ;
         }
 
         return rt;
@@ -267,7 +268,7 @@ public class LK {
      * @return String
      * @author llg
      */
-    public static String NameToPingYinShort(String name) throws Exception{
+    public static String NameToPingYinShort(String name) throws AppException{
         if (name == null || name.trim().equals(""))
             return "";
         String rt = "";
@@ -294,7 +295,7 @@ public class LK {
      * @return String
      * @author llg
      */
-    public final static String MD5(String s) throws Exception{
+    public final static String MD5(String s) throws AppException{
         char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
         try {
             byte[] btInput = s.getBytes();
@@ -316,7 +317,7 @@ public class LK {
             return new String(str).toUpperCase();
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            throw AppException.create(e.getMessage()) ;
         }
     }
     /**
@@ -326,7 +327,7 @@ public class LK {
      * @return int
      * @author llg
      */
-    public static int BirthdayToAge(Date borthDate)throws Exception {
+    public static int BirthdayToAge(Date borthDate)throws AppException {
         String now = DateToStr_Y(new Date());
         String borth = DateToStr_Y(borthDate);
         int rt = Integer.parseInt(now) - Integer.parseInt(borth);
@@ -340,7 +341,7 @@ public class LK {
      * @return int
      * @author llg
      */
-    public static int DateToAge(String borthDate) throws Exception{
+    public static int DateToAge(String borthDate) throws AppException{
         return BirthdayToAge(StrToDate_YMD(borthDate));
     }
 
@@ -350,11 +351,11 @@ public class LK {
      * @param obj
      * @return
      */
-    public static Boolean ObjIsNull(Object obj) throws Exception{
+    public static Boolean ObjIsNull(Object obj) throws AppException{
         return obj == null?true :false ;
     }
 
-    public static Object ObjIsNullDo(Object obj ,String def) throws Exception{
+    public static Object ObjIsNullDo(Object obj ,String def) throws AppException{
         if(obj==null)
             return def ;
         else
@@ -366,7 +367,7 @@ public class LK {
      * @param obj
      * @return
      */
-    public static boolean ObjIsNotNull(Object obj) throws Exception{
+    public static boolean ObjIsNotNull(Object obj) throws AppException{
         return !ObjIsNull(obj) ;
     }
 
@@ -376,7 +377,7 @@ public class LK {
      * @param discard       丢弃属性
      * @return
      */
-    public static List<Map<String,Object>> ListObjToListMap(List<?> list,Map<String,String> discard) throws Exception{
+    public static List<Map<String,Object>> ListObjToListMap(List<?> list,Map<String,String> discard) throws AppException{
         List<Map<String,Object>> listMap = new ArrayList<Map<String,Object>>(list.size()) ;
         Map<String,Object> map = null ;
         for(Object obj :list){
@@ -392,7 +393,7 @@ public class LK {
      * @param discard   丢弃属性
      * @return
      */
-    public static Map<String, Object> ObjToMap(Object obj,Map<String,String> discard )throws Exception {
+    public static Map<String, Object> ObjToMap(Object obj,Map<String,String> discard )throws AppException {
         Field[] fields = obj.getClass().getDeclaredFields();
         Map<String, Object> map = new HashMap<String, Object>(fields.length);
         boolean hasDiscard = discard!=null ;
@@ -412,7 +413,7 @@ public class LK {
         ObjSuperToMap(map,obj.getClass().getSuperclass(),obj,discard);
         return map;
     }
-    private static void ObjSuperToMap(Map<String,Object> map,Class clazz,Object obj,Map<String,String> discard) throws Exception{
+    private static void ObjSuperToMap(Map<String,Object> map,Class clazz,Object obj,Map<String,String> discard) throws AppException{
         if(clazz.equals(Object.class))
             return ;
         else{
@@ -430,6 +431,7 @@ public class LK {
                 }
             }catch (Exception e){
                 e.printStackTrace();
+                throw AppException.create(e.getMessage()) ;
             }
             ObjSuperToMap(map, clazz.getSuperclass(), obj,discard);
         }
@@ -442,7 +444,7 @@ public class LK {
      * @param num
      * @return
      */
-    public static Date AddDay(Date time,int num) throws Exception{
+    public static Date AddDay(Date time,int num) throws AppException{
         Calendar calendar = Calendar.getInstance() ;
         calendar.setTime(time);
         calendar.add(Calendar.DATE, num);
@@ -456,7 +458,7 @@ public class LK {
      * @return
      * @throws AppException
      */
-    public static String ObjToJsonStr(Object obj,String... removes) throws Exception{
+    public static String ObjToJsonStr(Object obj,String... removes) throws AppException{
         JsonConfig jc = new JsonConfig() ;
         jc.setExcludes(removes);
         JSONObject json = JSONObject.fromObject(obj,jc) ;
@@ -471,7 +473,7 @@ public class LK {
      * @return
      * @throws AppException
      */
-    public static <T> T StrJson2Obj(String strJson,Class<T> clazz) throws Exception{
+    public static <T> T StrJson2Obj(String strJson,Class<T> clazz) throws AppException{
         JSONObject jsonObj = JSONObject.fromObject(strJson) ;
         return (T)JSONObject.toBean(jsonObj,clazz) ;
     }
@@ -483,7 +485,7 @@ public class LK {
      * @param map     执行代码所需要的环境(也就是代码中的变量)
      * @return
      */
-    public static Object evalStrCode(String jexlExp,Map<String,Object> map) throws Exception{
+    public static Object evalStrCode(String jexlExp,Map<String,Object> map) throws AppException{
         JexlEngine jexl=new JexlEngine();
         Expression e = jexl.createExpression(jexlExp);
         JexlContext jc = new MapContext();

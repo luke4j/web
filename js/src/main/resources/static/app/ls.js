@@ -66,7 +66,40 @@ ls.ajax = function(p){
 
     $.ajax(_p) ;
 } ;
-
+/**
+ * 设置token到cookie
+ * @param token
+ */
+ls. cookie_SetCookieToken=function(token) {
+    var Then = new Date();
+    Then.setTime(Then.getTime() + 60*60*8*1000);
+    document.cookie = "luke-shop-token=" + token +"$$"+ Then.toGMTString();
+} ;
+/**
+ *cookie中取值
+ * @constructor
+ */
+ls.cookie_GetCookieToken=function() {
+    var token;
+    var nm;
+    var cookieString = new String(document.cookie);
+    console.dir("cookieString is "+cookieString) ;
+    /**
+     * cookieString is _ga=GA1.1.850342398.1557799810; Hm_lvt_e9ccdced32867527733a2550ec94eee6=1557799809,1557880969,1557976734; luke-shop-token=lukeToken-28eedabc721d4f56b64b89c08954281fFri, 17 May 2019 15:56:49 GMT
+     * */
+    var cookieHeader = "luke-shop-token=";
+    var beginPosition = cookieString.indexOf(cookieHeader);
+    cookieString = cookieString.substring(beginPosition);
+    var ends = cookieString.indexOf(";");
+    if (ends != -1) {
+        cookieString = cookieString.substring(0, ends);
+    }
+    if (beginPosition > -1) {
+        token = cookieString.substring(cookieHeader.length,cookieString.indexOf("$$"));
+        return token ;
+    }
+    return null ;
+} ;
 
 /**
  * 返回时间字符串

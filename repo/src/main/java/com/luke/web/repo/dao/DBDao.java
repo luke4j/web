@@ -96,12 +96,12 @@ public class DBDao {
      */
     public <T> T getRedisValue(String key) throws AppException{
         try{
-
+            if(!this.redisTemplate.hasKey(key)) Assertion.Error("redis不存在"+key+"数据");
+            return  (T)this.redisTemplate.opsForValue().get(key) ;
         }catch (Throwable e){
             throw AppException.create(e.getMessage()) ;
         }
-        if(!this.redisTemplate.hasKey(key)) Assertion.Error("redis不存在"+key+"数据");
-        return  (T)this.redisTemplate.opsForValue().get(key) ;
+
     }
 
     /**
@@ -114,13 +114,13 @@ public class DBDao {
      */
     public <T> T setRedisValue(String key,T val) throws AppException {
         try{
-
+            if(this.redisTemplate.hasKey(key)) Assertion.Error("redis中存在"+key+"数据");
+            this.redisTemplate.opsForValue().set(key,val);
+            return val ;
         }catch (Throwable e){
             throw AppException.create(e.getMessage()) ;
         }
-        if(this.redisTemplate.hasKey(key)) Assertion.Error("redis中存在"+key+"数据");
-        this.redisTemplate.opsForValue().set(key,val);
-        return val ;
+
     }
 
     /**
@@ -131,16 +131,16 @@ public class DBDao {
      */
     public Boolean delRedisValueByKey(String key) throws AppException{
         try{
-
+            if(this.redisTemplate.hasKey(key)){
+                this.redisTemplate.delete(key);
+                return true ;
+            }else{
+                return true ;
+            }
         }catch (Throwable e){
             throw AppException.create(e.getMessage()) ;
         }
-        if(this.redisTemplate.hasKey(key)){
-            this.redisTemplate.delete(key);
-            return true ;
-        }else{
-            return true ;
-        }
+
     }
 
     /**
@@ -154,13 +154,13 @@ public class DBDao {
      */
     public <T> T setRedisValueAndEX(String key ,T val ,Long time) throws AppException{
         try{
-
+            this.redisTemplate.opsForValue().set(key,val);
+            this.redisTemplate.expire(key, time, TimeUnit.MINUTES) ;
+            return val ;
         }catch (Throwable e){
             throw AppException.create(e.getMessage()) ;
         }
-        this.redisTemplate.opsForValue().set(key,val);
-        this.redisTemplate.expire(key, time, TimeUnit.MINUTES) ;
-        return val ;
+
     }
     /** *******************************************jdbc*********************************************************************/
     public JdbcTemplate getJdbcTemplate() {
@@ -169,16 +169,16 @@ public class DBDao {
 
     public String jdbcTemplateUpdate(String sql,Object[] objs)throws AppException{
         try{
-
+            logger.info("jdbc sql is ->:"+sql);
+            for(Object obj :objs){
+                logger.info("jdbc sql param is ->:"+obj.toString());
+            };
+            this.jdbcTemplate.update(sql,objs) ;
+            return "success" ;
         }catch (Throwable e){
             throw AppException.create(e.getMessage()) ;
         }
-        logger.info("jdbc sql is ->:"+sql);
-        for(Object obj :objs){
-            logger.info("jdbc sql param is ->:"+obj.toString());
-        };
-        this.jdbcTemplate.update(sql,objs) ;
-        return "success" ;
+
     }
     /** ****************************************************JPA************************************************************/
     /**

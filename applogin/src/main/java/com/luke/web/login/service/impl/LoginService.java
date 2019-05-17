@@ -5,6 +5,7 @@ import com.luke.web.login.service.ILoginService;
 import com.luke.web.model.Lgn_Item;
 import com.luke.web.model.Lgn_Msg;
 import com.luke.web.model.U_Staff;
+import com.luke.web.tool.LK;
 import com.luke.web.tool.exception.AppException;
 import com.luke.web.tool.web.ActResult;
 import com.luke.web.vo.login.VOInLogin;
@@ -14,7 +15,6 @@ import com.luke.web.vo.login.VOoutSrc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -30,8 +30,8 @@ public class LoginService implements ILoginService {
     ILoginDao loginDao ;
 
     @Override
-    @Cacheable(value = "staff",key = "#vo.loginName")
-    public VOoutInfo findLoginUser(VOInLogin vo , ActResult<VOoutInfo> art) throws AppException {
+    public VOoutInfo findLoginUser(VOInLogin vo , ActResult<VOoutInfo> actResult) throws AppException {
+
         VOoutInfo outInfo = new VOoutInfo() ;
         U_Staff staff = this.loginDao.findStaffByNamePassword(vo.getLoginName(),vo.getPassword()) ;
         if(staff==null){
@@ -62,7 +62,22 @@ public class LoginService implements ILoginService {
                 outInfo.getSrcs().add(new VOoutSrc(item)) ;
             }
         }
-
+        /**设置redis数据*/
+        String token = LK.uuid() ;
+        token = "lukeToken-"+token ;
+        actResult.getExtend().put("token",token) ;
+        this.loginDao.saveToken(token,outInfo) ;
+        if(logger.isDebugEnabled()){
+            logger.debug("姓名 is "+outInfo.getStaffName()+"====ID is"+outInfo.getStaffId()+"====token is"+token);
+        }
         return outInfo;
+    }
+
+
+    @Override
+    public VOoutInfo getTokenIsValid(String loginTuken) throws AppException {
+        String strTokenVal = this.loginDao.getTokenIsValid(loginTuken) ;
+        VOoutInfo tokenVal = LK.StrJson2Obj(strTokenVal,VOoutInfo.class) ;
+        return tokenVal;
     }
 }

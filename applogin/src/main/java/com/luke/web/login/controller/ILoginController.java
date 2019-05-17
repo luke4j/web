@@ -18,20 +18,6 @@ import javax.validation.Valid;
 @RequestMapping(path = "login")
 public interface ILoginController {
 
-    /**
-     * 登录接口
-     * url=login.act
-     * @param request
-     * @param response
-     * @param vo
-     * @param result
-     * @return
-     * @throws AppException
-     */
-    @RequestMapping(path = "login.act",method = RequestMethod.POST)
-    ActResult<VOoutInfo> login(HttpServletRequest request, HttpServletResponse response,
-                               ActResult<VOoutInfo> ar,
-                               @Valid VOInLogin vo , BindingResult result) throws AppException ;
 
 
 

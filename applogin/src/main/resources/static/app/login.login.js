@@ -50,10 +50,19 @@ define(function(require){
         login:function(){
             if(this.isValid()){
                 ls.ajax({
-                    url:'login/login.act',
+                    url:'login.act',
                     data:this.attributes,
-                    success:function(reps){
-                        window.location.href=window.location.href+"work" ;
+                    success:function(resp){
+                        if(resp.extend==null||resp.extend.token==null){
+                            window.location.href=window.location.href ;
+                        }else{
+                            console.dir("token is "+resp.extend.token) ;
+                            ls.cookie_SetCookieToken(resp.extend.token) ;
+                            var token = ls.cookie_GetCookieToken() ;
+                            if(token){
+                                window.location.href=window.location.href+"?loginTuken="+token ;
+                            }
+                        }
                     }
                 }) ;
             }

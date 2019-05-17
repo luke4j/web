@@ -13,4 +13,12 @@ public interface ILoginService {
      * @throws AppException
      */
     VOoutInfo findLoginUser(VOInLogin vo, ActResult<VOoutInfo> art) throws AppException;
+
+    /**
+     * 查询token，返回VOoutInfo
+     * @param loginTuken
+     * @return
+     * @throws AppException
+     */
+    VOoutInfo getTokenIsValid(String loginTuken)throws AppException;
 }

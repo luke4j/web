@@ -23,17 +23,7 @@ public class LoginController implements ILoginController {
 
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class) ;
 
-    @Resource
-    ILoginService loginService ;
 
-    @Override
-    public ActResult<VOoutInfo> login(HttpServletRequest request, HttpServletResponse response,
-                                      ActResult<VOoutInfo> art,
-                                      @Valid VOInLogin vo, BindingResult result) throws AppException {
-        art.setDoing("登录");
-        VOoutInfo staff = loginService.findLoginUser(vo,art) ;
-        art.setData(staff);
-        art.getExtend().put("systime",new Date()) ;
-        return art;
-    }
+
+
 }
