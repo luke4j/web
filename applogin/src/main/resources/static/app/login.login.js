@@ -1,6 +1,7 @@
 define(function(require){
 
     require("jquery") ;
+    require("jcookie") ;
     require("backbone") ;
     require("layui") ;
     require('app/ls') ;
@@ -48,6 +49,15 @@ define(function(require){
         },
         /**登录访求*/
         login:function(){
+            if(this.attributes.rememberMe){
+               $.cookie("luke-loginName",this.attributes.loginName,{expires:7}) ;
+               $.cookie("luke-password",this.attributes.password,{expires:7})
+            }else{
+                $.removeCookie("luke-loginName") ;
+                $.removeCookie("luke-password") ;
+            }
+
+            this.attributes.password = hex_md5(this.attributes.password) ;
             if(this.isValid()){
                 ls.ajax({
                     url:'login.act',
@@ -56,9 +66,8 @@ define(function(require){
                         if(resp.extend==null||resp.extend.token==null){
                             window.location.href=window.location.href ;
                         }else{
-                            console.dir("token is "+resp.extend.token) ;
-                            ls.cookie_SetCookieToken(resp.extend.token) ;
-                            var token = ls.cookie_GetCookieToken() ;
+                            ls.cookieSetToken(resp.extend.token) ;
+                            var token = ls.cookieGetToken() ;
                             if(token){
                                 window.location.href=window.location.href+"?loginTuken="+token ;
                             }
@@ -80,6 +89,12 @@ define(function(require){
         render:function(){
             this.setTime() ;
             setInterval(this.setTime,1000) ;
+            var loginName = $.cookie("luke-loginName") ;
+            var password = $.cookie("luke-password") ;
+            if(loginName && password){
+                this.$loginName.val(loginName) ;
+                this.$password.val(password) ;
+            }
         },
         /**页面事件*/
         events:function(){
@@ -97,26 +112,32 @@ define(function(require){
             }
         },
         ipt_password_blur_handler:function(je){
-            var ps = $(je.currentTarget).val() ;
-            if(ps){
-                ps = hex_md5(ps) ;
-                $(je.currentTarget).val(ps) ;
-            }
+            // var ps = $(je.currentTarget).val() ;
+            // if(ps){
+            //     ps = hex_md5(ps) ;
+            //     $(je.currentTarget).val(ps) ;
+            // }
         },
         dv_rememberMe_click_handler:function(je){
-            var pic = document.getElementById('picture');
-            if(pic.getAttribute("src",2) =="img/check.png"){
-                pic.src ="img/checked.png" ;
+
+            var $pic = $("#picture") ;
+            if($pic.attr("src")=="img/check.png"){
+                $pic.attr("src","img/checked.png") ;
                 this.model.set("rememberMe",true) ;
             }else{
-                pic.src ="img/check.png" ;
+                $pic.attr("src","img/check.png") ;
                 this.model.set("rememberMe",false) ;
             }
-
         },
         btn_login_click_handler:function(je){
             this.model.set("loginName",this.$loginName.val()) ;
             this.model.set("password",this.$password.val()) ;
+
+            if(this.model.rememberMe){
+                $.cookie("luke-loginName",this.$loginName.val(),{expires:1}) ;
+                $.cookie("luke-password",this.$password.val(),{expires:1}) ;
+            }
+
             this.model.login() ;
         },
         /**功能，设置登录边上的时间*/

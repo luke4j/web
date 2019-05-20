@@ -13,9 +13,14 @@ require.config({
         layui:'js/ui/layui/layui',
         md5:'js/md5',
         json2:'js/json2',
+        jcookie:'js/jquery.cookie',
         ls:"app/ls"
     },
     shim:{
+        jcookie:{
+            deps:['jquery'],
+            exports:'jcookie'
+        },
         md5:{
             deps:['jquery'],
             exports:'md5'
