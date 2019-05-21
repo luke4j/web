@@ -13,8 +13,12 @@ public class AppException extends RuntimeException {
     }
 
     public static AppException create(String msg){
-        AppException ae = new AppException(msg) ;
+        AppException ae = new AppException("error-"+msg) ;
         return ae ;
     }
 
+    public static AppException create(String modelName,String msg){
+        AppException ae = new AppException("error-"+modelName+"-"+msg) ;
+        return ae ;
+    }
 }

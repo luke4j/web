@@ -10,9 +10,9 @@ import javax.validation.constraints.NotEmpty;
 public class VOInLogin extends VOIn {
 
     @ApiModelProperty(value = "登录名" ,required = true)
-    @NotEmpty(message = "登录名不能为空")
+//    @NotEmpty(message = "登录名不能为空")
     String loginName ;
-    @NotEmpty(message = "登录密码不能为空")
+//    @NotEmpty(message = "登录密码不能为空")
     String password ;
 
     public String getLoginName() {

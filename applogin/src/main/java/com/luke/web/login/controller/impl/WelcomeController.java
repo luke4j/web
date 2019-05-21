@@ -3,9 +3,13 @@ package com.luke.web.login.controller.impl;
 import com.luke.web.login.controller.IWelcomeController;
 import com.luke.web.login.service.ILoginService;
 import com.luke.web.tool.LK;
+import com.luke.web.tool.LKMap;
 import com.luke.web.tool.exception.AppException;
 import com.luke.web.tool.web.ActResult;
+import com.luke.web.vo.VOIn;
+import com.luke.web.vo.VOOut;
 import com.luke.web.vo.login.VOInLogin;
+import com.luke.web.vo.login.VOInUpdatePwd;
 import com.luke.web.vo.login.VOoutInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +45,7 @@ public class WelcomeController implements IWelcomeController {
             if(tokenVal==null){
                 return "login";
             }else{
-                return "/work" ;
+                return "work" ;
             }
 
         }
@@ -51,9 +55,40 @@ public class WelcomeController implements IWelcomeController {
     public ActResult<VOoutInfo> login(HttpServletRequest request, HttpServletResponse response,
                                       ActResult<VOoutInfo> actResult,
                                       @Valid VOInLogin vo, BindingResult result) throws AppException {
-        actResult.setDoing("登录");
+        actResult.setDoing("用户名登录");
         VOoutInfo staff = loginService.findLoginUser(vo,actResult) ;
         actResult.setData(staff);
+        return actResult;
+    }
+
+    @Override
+    public ActResult<VOoutInfo> getUserInfo(HttpServletRequest request, HttpServletResponse response,
+                                            ActResult<VOoutInfo> actResult,
+                                            @Valid VOInLogin vo, BindingResult result) throws AppException {
+        actResult.setDoing("token登录");
+        VOoutInfo staff = loginService.getTokenIsValid(vo.getLoginTuken()) ;
+        actResult.setData(staff);
+        return actResult;
+    }
+
+    @Override
+    public String logout(HttpServletRequest request, HttpServletResponse response,
+                         ActResult<VOoutInfo> actResult,
+                         @Valid VOInLogin vo, BindingResult result)throws AppException{
+        actResult.setDoing("token登出");
+        loginService.delToken(vo.getLoginTuken()) ;
+        return "login" ;
+    }
+
+    @Override
+    public ActResult<Object> updatePassword(HttpServletRequest request, HttpServletResponse response,
+                                           ActResult<Object> actResult,
+                                           @Valid VOInUpdatePwd vo, BindingResult result) throws AppException {
+
+        actResult.setDoing("修改个人密码");
+        loginService.updatePassword(vo,actResult) ;
+        actResult.setMsg("密码修改成功");
+        actResult.setData(actResult);
         return actResult;
     }
 }

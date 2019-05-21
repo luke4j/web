@@ -26,10 +26,21 @@ define(function(require) {
             this.addfooter() ;
         },
         addHead:function(){
+            var me = this ;
+            var viewHeadLeft = new ViewHeadLeft() ;
             this.dv_head.append(new ViewHeadLogo().render().el)
-                .append(new ViewHeadLeft().render().el)
+                .append(viewHeadLeft.render().el)
                 .append(new ViewHeadRight().render().el) ;
+            this.showTime(viewHeadLeft) ;
+            viewHeadLeft.addModel({text:me.getTime()}) ;
         },
+        showTime:function(viewHeadLeft){
+            var me = this ;
+            setInterval(function(){
+                viewHeadLeft.addModel({text:me.getTime()}) ;
+            },1000) ;
+        },
+
         addMenu:function(){
             this.dv_menu.append() ;
         },
@@ -38,26 +49,68 @@ define(function(require) {
         },
         addfooter:function(){
             this.dv_footer.html("© luke-shop") ;
+        },
+        SystemTime:null,
+        getTime:function() {
+            var date ;
+            if(this.SystemTime){
+                this.SystemTime = new Date(this.SystemTime.getTime()+1000) ;
+            }else{
+                if($("#systime").length>0){
+                    var systime = $("#systime").text() ;
+                    this.SystemTime = new Date( parseInt(systime));
+                }else{
+                    this.SystemTime = new Date() ;
+                }
+            }
+            date = ls.tm_getCurrentDate(3,this.SystemTime) ;
+            return date;
         }
     }) ;
-
 
     var ViewHeadLeft = Backbone.View.extend({
         tagName:"ul",
         initialize:function(){
             this.$el.addClass("layui-nav layui-layout-left") ;
-            this.render() ;
-        },
-        render:function(){
             var $li = new ViewLi().setElId("li_showTime").render().$el  ;
             this.$el.append($li) ;
-            var time = new ModelTime({vId:"li_showTime"}) ;
+        },
+        render:function(){
             return this ;
+        },
+        addModel:function(model){
+            var m = new ModelLi(model) ;
+            this.model = m ;
+            $("#li_showTime").remove() ;
+            var $li = new ViewLi({model:m}).setElId("li_showTime").render().$el  ;
+            this.$el.append($li) ;
         }
 
     }) ;
     var ViewHeadRight = Backbone.View.extend({
+        tagName:"ul",
+        initialize:function(){
+            this.$el.addClass("layui-nav layui-layout-right") ;
+            var vl_exit = new ViewLi({model:new ModelLi({text:'退出'})}).setElId("li_exit").render() ;
+            var $li_exit = vl_exit.$el ;
 
+            var vl_userInfo =  new ViewLi({model:new ModelLi({text:'用户信息'})}).setElId("li_userInfo").render() ;
+            var $li_userInfo = vl_userInfo.$el  ;
+
+            this.$el.append($li_userInfo) ;
+            this.$el.append($li_exit) ;
+        },
+        events:{
+            "click #li_exit":"li_exit_click_handler" //退出事件
+        },
+        render:function(){
+            return this ;
+        },
+        li_exit_click_handler:function(){
+            ls.ajax({
+                url:""
+            })
+        }
     }) ;
 
     var ViewHeadLogo = Backbone.View.extend({
@@ -71,31 +124,71 @@ define(function(require) {
         }
     }) ;
 
+    /**
+     tip:'说明',
+     text:'测试项',
+     jsurl:[js-url]
+     child:[{text:'测试子项1',tip:'测试子项1说明'},{text:'测试子项2',tip:'测试子项2说明'}]
+     */
     var ModelLi =  Backbone.Model.extend({
         defaults:{
-            text:'测试项'
+            tip:'说明',
+            text:'测试项',
+            src:''
         },
         initialize:function(){
-            var me = this ;
-            this.on("change text",function(m){
-                if(me.liView){
-                    me.liView.setText(m.attributes.text) ;
-                }
-            }) ;
         }
     }) ;
+
+
     var ViewLi = Backbone.View.extend({
         tagName:"li",
+        events:{
+            "click a":"li_click_handler"
+        },
         initialize:function(){
-            this.$el.addClass("layui-nav-item").append(
-                $("<a>").attr("href","javascript:;")
+            this.model = this.model?this.model:new ModelLi() ;
+            this.listenTo(this.model,'change text',this.changeModelText) ;
+            this.data_show1(this.model.attributes,this.$el) ;
+
+        },
+        li_click_handler:function(je){
+            // console.dir($(je.currentTarget)) ;
+            var $item = $(je.currentTarget) ;
+            if($item.attr("jsurl")){
+                require($item.attr("jsurl"));
+            }
+        },
+        data_show1:function(obj,$el){
+            obj = obj||{}
+            var text = obj.text||'' ;
+            $el.addClass("layui-nav-item").append(
+                $("<a>").attr("href","javascript:;").attr("jsurl",obj.jsurl||"").text(text)
             ) ;
+            if(obj.child){
+                var $dl = $("<dl>").addClass("layui-nav-child") ;
+                $el.append($dl) ;
+                this.data_dg1(obj.child,$dl)
+            }
+        },
+        data_dg1:function(child,$el){
+            for(var obj in child){
+                obj = obj||{} ;
+                var m = new ModelLi(child[obj]) ;
+                var $dd = $("<dd>").append($("<a>").attr("href","javascript:;").attr("jsurl",obj.jsurl||"").text(m.attributes.text)) ;
+                $el.append($dd) ;
+                if(m.child){
+                    var $dl = $("<dl>").addClass("layui-nav-child") ;
+                    $el.append($dl) ;
+                    this.data_dg1(m.child,$dl)
+                }
+            }
         },
         render:function(){
             return this ;
         },
-        setText:function(text){
-          $("a",this.$el).text(text) ;
+        changeModelText:function(m){
+            $("a:eq(1)",this.$el).text(m.attributes.text) ;
         },
         setElId:function(id){
             this.$el.attr("id",id) ;
