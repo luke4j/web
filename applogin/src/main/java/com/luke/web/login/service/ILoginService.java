@@ -37,5 +37,5 @@ public interface ILoginService {
      * @param actResult
      * @return
      */
-    void updatePassword(VOInUpdatePwd vo, ActResult<Object> actResult)throws AppException;
+    void updatePassword(VOInUpdatePwd vo, ActResult<VOOut> actResult)throws AppException;
 }

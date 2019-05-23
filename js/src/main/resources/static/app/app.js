@@ -34,7 +34,7 @@ require.config({
             exports:'layui'
         },
         ls:{
-            deps:['jquery','underscore','backbone','json2','md5','layui','css!js/ui/layui/css/layui.css'],
+            deps:['jquery','jcookie','underscore','backbone','json2','md5','layui','css!js/ui/layui/css/layui.css'],
             exports:'ls'
         }
     }

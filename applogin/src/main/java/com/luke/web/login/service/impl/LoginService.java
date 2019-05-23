@@ -85,7 +85,7 @@ public class LoginService implements ILoginService {
     }
 
     @Override
-    public void updatePassword(VOInUpdatePwd vo, ActResult<Object> actResult)throws AppException {
+    public void updatePassword(VOInUpdatePwd vo, ActResult<VOOut> actResult)throws AppException {
         U_Staff user = this.loginDao.getStaff(vo) ;
         if(user==null) throw AppException.create("登录","ID查询不到操作者") ;
         if(!user.getPassword().equals(vo.getPassowrd())) throw AppException.create("登录","原密码不正确") ;

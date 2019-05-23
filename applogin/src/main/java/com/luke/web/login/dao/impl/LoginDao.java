@@ -30,14 +30,14 @@ public class LoginDao extends DBDao implements ILoginDao  {
     }
 
     @Override
-    @Cacheable(value = "redis-staff",key = "#loginTuken")
+//    @Cacheable(value = "redis-staff",key = "#loginTuken")
     public String getTokenIsValid(String loginTuken) throws AppException {
         String usreInfo = this.getRedisValue(loginTuken) ;
         return usreInfo;
     }
 
     @Override
-    @CacheEvict(value = "redis-staff",key = "#token")
+//    @CacheEvict(value = "redis-staff",key = "#token")
     public void delToken(String loginTuken) throws AppException {
         this.delRedisValueByKey(loginTuken) ;
     }

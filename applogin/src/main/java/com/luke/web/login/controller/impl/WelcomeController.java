@@ -72,23 +72,33 @@ public class WelcomeController implements IWelcomeController {
     }
 
     @Override
-    public String logout(HttpServletRequest request, HttpServletResponse response,
-                         ActResult<VOoutInfo> actResult,
+    public ActResult<VOOut> logout(HttpServletRequest request, HttpServletResponse response,
+                                   ActResult<VOOut> actResult,
                          @Valid VOInLogin vo, BindingResult result)throws AppException{
         actResult.setDoing("token登出");
         loginService.delToken(vo.getLoginTuken()) ;
-        return "login" ;
+        return actResult ;
     }
 
     @Override
-    public ActResult<Object> updatePassword(HttpServletRequest request, HttpServletResponse response,
-                                           ActResult<Object> actResult,
+    public ActResult<VOOut> updatePassword(HttpServletRequest request, HttpServletResponse response,
+                                           ActResult<VOOut> actResult,
                                            @Valid VOInUpdatePwd vo, BindingResult result) throws AppException {
 
         actResult.setDoing("修改个人密码");
         loginService.updatePassword(vo,actResult) ;
         actResult.setMsg("密码修改成功");
-        actResult.setData(actResult);
+        return actResult;
+    }
+
+    @Override
+    public ActResult<VOOut> getAppRootUrl( HttpServletRequest request, HttpServletResponse response,
+                                           ActResult<VOOut> actResult) throws AppException {
+        actResult.setDoing("得到程序url路径");
+        String contextPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+        VOOut out = new VOOut() ;
+        out.setInfo(contextPath);
+        actResult.setData(out);
         return actResult;
     }
 }

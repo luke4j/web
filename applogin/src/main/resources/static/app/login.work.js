@@ -3,7 +3,7 @@ define(function(require) {
     require("jquery");
     require("backbone");
     require("layui");
-    require('app/ls');
+    require('ls');
     require("json2");
     require("md5");
 
@@ -91,7 +91,7 @@ define(function(require) {
         tagName:"ul",
         initialize:function(){
             this.$el.addClass("layui-nav layui-layout-right") ;
-            var vl_exit = new ViewLi({model:new ModelLi({text:'退出'})}).setElId("li_exit").render() ;
+            var vl_exit = new ViewLi({model:new ModelLi({text:'退出',jsurl:'app/login/logout'})}).setElId("li_exit").render() ;
             var $li_exit = vl_exit.$el ;
 
             var vl_userInfo =  new ViewLi({model:new ModelLi({text:'用户信息'})}).setElId("li_userInfo").render() ;
@@ -101,15 +101,9 @@ define(function(require) {
             this.$el.append($li_exit) ;
         },
         events:{
-            "click #li_exit":"li_exit_click_handler" //退出事件
         },
         render:function(){
             return this ;
-        },
-        li_exit_click_handler:function(){
-            ls.ajax({
-                url:""
-            })
         }
     }) ;
 
@@ -134,7 +128,7 @@ define(function(require) {
         defaults:{
             tip:'说明',
             text:'测试项',
-            src:''
+            jsurl:''
         },
         initialize:function(){
         }
@@ -153,10 +147,11 @@ define(function(require) {
 
         },
         li_click_handler:function(je){
-            // console.dir($(je.currentTarget)) ;
             var $item = $(je.currentTarget) ;
             if($item.attr("jsurl")){
-                require($item.attr("jsurl"));
+                require([$item.attr("jsurl")],function(FunModel){
+                    new FunModel() ;
+                });
             }
         },
         data_show1:function(obj,$el){

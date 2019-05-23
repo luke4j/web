@@ -66,7 +66,20 @@ ls.ajax = function(p){
 
     $.ajax(_p) ;
 } ;
-
+ls.contextPath ;
+ls.getContextPath = function(){
+    if(ls.contextPath){
+        return ls.contextPath ;
+    }
+    $.ajax("getAppRootUrl.act",{
+        async:false,
+        type:'POST',
+        success:function(reps){
+            ls.contextPath = reps.data.info ;
+        }
+    }) ;
+    return ls.contextPath ;
+} ;
 ls.cookieGetToken = function(){
     return $.cookie("luke-shop") ;
 } ;

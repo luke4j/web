@@ -73,8 +73,9 @@ public interface IWelcomeController {
      * @throws AppException
      */
     @RequestMapping(path = "logout.act",method = RequestMethod.POST)
-    String logout(HttpServletRequest request, HttpServletResponse response,
-                         ActResult<VOoutInfo> actResult,
+    @ResponseBody
+    ActResult<VOOut> logout(HttpServletRequest request, HttpServletResponse response,
+                         ActResult<VOOut> actResult,
                          @Valid VOInLogin vo, BindingResult result)throws AppException ;
 
     /**
@@ -89,10 +90,12 @@ public interface IWelcomeController {
      */
     @RequestMapping(path = "updatePassword.act",method = RequestMethod.POST)
     @ResponseBody
-    ActResult<Object> updatePassword (HttpServletRequest request, HttpServletResponse response,
-                                     ActResult<Object> actResult,
+    ActResult<VOOut> updatePassword (HttpServletRequest request, HttpServletResponse response,
+                                     ActResult<VOOut> actResult,
                                      @Valid VOInUpdatePwd vo, BindingResult result)throws AppException ;
 
-
+    @RequestMapping(path = "getAppRootUrl.act",method = RequestMethod.POST)
+    @ResponseBody
+    ActResult<VOOut> getAppRootUrl( HttpServletRequest request, HttpServletResponse response,ActResult<VOOut> actResult) throws AppException ;
 
 }
