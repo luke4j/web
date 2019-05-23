@@ -74,7 +74,7 @@ public class DBDao {
             });
             return query ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -99,7 +99,7 @@ public class DBDao {
             if(!this.redisTemplate.hasKey(key)) Assertion.Error("redis不存在"+key+"数据");
             return  (T)this.redisTemplate.opsForValue().get(key) ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -118,7 +118,7 @@ public class DBDao {
             this.redisTemplate.opsForValue().set(key,val);
             return val ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -138,7 +138,7 @@ public class DBDao {
                 return true ;
             }
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -158,7 +158,7 @@ public class DBDao {
             this.redisTemplate.expire(key, time, TimeUnit.MINUTES) ;
             return val ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -176,7 +176,7 @@ public class DBDao {
             this.jdbcTemplate.update(sql,objs) ;
             return "success" ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -198,7 +198,7 @@ public class DBDao {
             this.getSession().persist(obj);
             return obj ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -218,7 +218,7 @@ public class DBDao {
             this.setParams(query, param).executeUpdate() ;
             return true ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -237,7 +237,7 @@ public class DBDao {
             this.jdbcTemplate.update(sql, params) ;
             return true ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -256,7 +256,7 @@ public class DBDao {
             this.setParams(query, param).executeUpdate() ;
             return true ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
     }
 
@@ -297,7 +297,7 @@ public class DBDao {
             this.getSession().merge(obj);
             return obj ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -328,7 +328,7 @@ public class DBDao {
             this.getSession().flush();
             return list ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -347,7 +347,7 @@ public class DBDao {
             Query query = this.getSession().createQuery(ql) ;
             return (T) this.setParams(query, param).getSingleResult() ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -366,7 +366,7 @@ public class DBDao {
             Query query = this.getSession().createQuery(ql, toBean) ;
             return (T)this.setParams(query,param).getSingleResult() ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
 //      return (T)this.getSession().createQuery(ql).setResultTransformer(Transformers.aliasToBean(toBean)).setProperties(param).uniqueResult() ;
@@ -400,7 +400,7 @@ public class DBDao {
             }
             return query.getResultList() ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -416,7 +416,7 @@ public class DBDao {
         try{
             return this.find(ql, null, null, null, null) ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -433,7 +433,7 @@ public class DBDao {
         try{
             return this.find(ql, null, null, toBean, null) ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -449,7 +449,7 @@ public class DBDao {
         try{
             return this.find(ql, param, null, null, null) ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -467,7 +467,7 @@ public class DBDao {
         try{
             return this.find(ql, param, page, null, null) ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -484,7 +484,7 @@ public class DBDao {
         try{
             return this.getSession().find(clss, id) ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -493,7 +493,7 @@ public class DBDao {
         try{
             return this.updateObj(obj) ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }
@@ -515,7 +515,7 @@ public class DBDao {
             }
             return obj ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
     }
     /**
@@ -530,7 +530,7 @@ public class DBDao {
             this.getSession().remove(obj);
             return obj ;
         }catch (Throwable e){
-            throw AppException.create(e.getMessage()) ;
+            throw AppException.create(this.getClass(),e.getMessage()) ;
         }
 
     }

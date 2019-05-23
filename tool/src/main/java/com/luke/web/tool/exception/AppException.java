@@ -21,4 +21,9 @@ public class AppException extends RuntimeException {
         AppException ae = new AppException("error-"+modelName+"-"+msg) ;
         return ae ;
     }
+
+    public static AppException create(Class<?> clazz,String msg){
+        AppException ae = new AppException("error-"+clazz.toString()+"-"+msg) ;
+        return ae ;
+    }
 }
