@@ -101,8 +101,8 @@ define(function(require){
             return{
                 "click #btn_login":"btn_login_click_handler",//点击登录事件
                 "click #dv_rememberMe":"dv_rememberMe_click_handler",//点击记住我事件
-                "blur #ipt_password":"ipt_password_blur_handler",//输入密码后直接MD5加密
                 "keypress #ipt_password":"ipt_password_keypress_handler",//密码窗回车事件
+                "keypress #ipt_loginName":"ipt_password_keypress_handler"//密码窗回车事件
             } ;
         },
         ipt_password_keypress_handler:function(je){
@@ -111,15 +111,8 @@ define(function(require){
                 this.btn_login_click_handler() ;
             }
         },
-        ipt_password_blur_handler:function(je){
-            // var ps = $(je.currentTarget).val() ;
-            // if(ps){
-            //     ps = hex_md5(ps) ;
-            //     $(je.currentTarget).val(ps) ;
-            // }
-        },
-        dv_rememberMe_click_handler:function(je){
 
+        dv_rememberMe_click_handler:function(je){
             var $pic = $("#picture") ;
             if($pic.attr("src")=="img/check.png"){
                 $pic.attr("src","img/checked.png") ;

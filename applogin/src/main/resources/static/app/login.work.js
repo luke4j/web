@@ -31,6 +31,7 @@ define(function(require) {
             this.dv_head.append(new ViewHeadLogo().render().el)
                 .append(viewHeadLeft.render().el)
                 .append(new ViewHeadRight().render().el) ;
+
             this.showTime(viewHeadLeft) ;
             viewHeadLeft.addModel({text:me.getTime()}) ;
         },
@@ -87,14 +88,20 @@ define(function(require) {
         }
 
     }) ;
+
     var ViewHeadRight = Backbone.View.extend({
         tagName:"ul",
         initialize:function(){
             this.$el.addClass("layui-nav layui-layout-right") ;
-            var vl_exit = new ViewLi({model:new ModelLi({text:'退出',jsurl:'app/login/logout'})}).setElId("li_exit").render() ;
+
+            var dataExit = {text:'退出',jsurl:'app/login/logout'} ;
+            var vl_exit = new ViewLi({model:new ModelLi(dataExit)}).setElId("li_exit").render() ;
             var $li_exit = vl_exit.$el ;
 
-            var vl_userInfo =  new ViewLi({model:new ModelLi({text:'用户信息'})}).setElId("li_userInfo").render() ;
+            var dataUpdatePassword = {text:'修改密码',jsurl:'app/login/updatePassword'} ;
+            var dataShowStaffInfo = {text:'个人信息',jsurl:'app/login/showStaffInfo'} ;
+            var dataUser = {model:new ModelLi({text:'用户信息',child:[dataUpdatePassword,dataShowStaffInfo]})} ;
+            var vl_userInfo =  new ViewLi(dataUser).setElId("li_userInfo").render() ;
             var $li_userInfo = vl_userInfo.$el  ;
 
             this.$el.append($li_userInfo) ;
@@ -150,7 +157,18 @@ define(function(require) {
             var $item = $(je.currentTarget) ;
             if($item.attr("jsurl")){
                 require([$item.attr("jsurl")],function(FunModel){
-                    new FunModel() ;
+                    if(FunModel){
+                        new FunModel() ;
+                    }else{
+                        layui.use("layer",function(){
+                            var layer = layui.layer ;
+                            layer.open({
+                                title: 'js异常',
+                                content: $item.attr("jsurl")+'.js文件===定义异常'
+                            });
+                        }) ;
+                    }
+
                 });
             }
         },
@@ -170,7 +188,7 @@ define(function(require) {
             for(var obj in child){
                 obj = obj||{} ;
                 var m = new ModelLi(child[obj]) ;
-                var $dd = $("<dd>").append($("<a>").attr("href","javascript:;").attr("jsurl",obj.jsurl||"").text(m.attributes.text)) ;
+                var $dd = $("<dd>").append($("<a>").attr("href","javascript:;").attr("jsurl",m.attributes.jsurl||"").text(m.attributes.text)) ;
                 $el.append($dd) ;
                 if(m.child){
                     var $dl = $("<dl>").addClass("layui-nav-child") ;
