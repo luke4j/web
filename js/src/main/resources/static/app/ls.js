@@ -6,10 +6,25 @@
 
 var ls = ls||{} ;
 
-
+ls.error = function(error){
+    layui.use("layer",function(){
+        var layer = layui.layer ;
+        layer.open({
+            title: '异常',
+            content: "ls.alert参数不是字符，而是"+typeof(msg)
+        });
+    }) ;
+} ;
 ls.alert = function(msg){
     layui.use("layer",function(){
         var layer = layui.layer ;
+        if(typeof(msg)!="string"){
+            layer.open({
+                title: '异常',
+                content: "ls.alert参数不是字符，而是"+typeof(msg)
+            });
+            return false ;
+        }
         layer.open({
             title: '提示',
             content: msg
