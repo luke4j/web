@@ -5,6 +5,20 @@
  * */
 
 var ls = ls||{} ;
+
+
+ls.alert = function(msg){
+    layui.use("layer",function(){
+        var layer = layui.layer ;
+        layer.open({
+            title: '提示',
+            content: msg
+        });
+    }) ;
+};
+
+
+
 /**
  * 程序统一使用的ajax方法
  */
