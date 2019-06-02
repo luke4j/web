@@ -38,6 +38,8 @@ public class WelcomeController implements IWelcomeController {
     public String welcome(HttpServletRequest request,VOInLogin vo, Model model) throws AppException {
         model.addAttribute("sysname",sysname) ;
         model.addAttribute("systime",new Date()) ;
+        String localhost = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
+        model.addAttribute("localhost",localhost) ;
         if(LK.StrIsEmpty(vo.getLoginTuken())){
             return "login";
         }else{

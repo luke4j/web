@@ -63,13 +63,14 @@ define(function(require){
                     url:'login.act',
                     data:this.attributes,
                     success:function(resp){
+                        var localhost = $("#localhost").text() ;
                         if(resp.extend==null||resp.extend.token==null){
-                            window.location.href=window.location.href ;
+                            window.location.href=localhost ;
                         }else{
                             ls.cookieSetToken(resp.extend.token) ;
                             var token = ls.cookieGetToken() ;
                             if(token){
-                                window.location.href=window.location.href+"?loginTuken="+token ;
+                                window.location.href=localhost+"?loginTuken="+token ;
                             }
                         }
                     }
