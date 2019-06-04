@@ -11,15 +11,26 @@ public class VOOutMenu extends VOOut {
     public VOOutMenu() {
     }
 
-    public VOOutMenu(String jsurl, String text, String tip) {
+    public VOOutMenu(String jsurl, String text, String tip,Long fatherId) {
         this.jsurl = jsurl;
         this.text = text;
         this.tip = tip;
-    }
+        this.fatherId = fatherId ;
 
+    }
+    Long fatherId ;
     String jsurl ;
     String text ;
     String tip ;
+
+    public Long getFatherId() {
+        return fatherId;
+    }
+
+    public void setFatherId(Long fatherId) {
+        this.fatherId = fatherId;
+    }
+
     List<VOOutMenu> child = new ArrayList<VOOutMenu>(100) ;
 
     public String getJsurl() {

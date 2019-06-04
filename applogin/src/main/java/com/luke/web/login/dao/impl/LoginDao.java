@@ -62,15 +62,18 @@ public class LoginDao extends DBDao implements ILoginDao  {
             return null ;
         user.getRole().getSrcs().size() ;
         VOOutMenu role = new VOOutMenu() ;
-        roleItems(role.getChild(),0l,user.getRole()) ;
+        role.setFatherId(0l);
+        List<Lgn_Item> allItems =  new ArrayList<Lgn_Item>(user.getRole().getSrcs().size()) ;
+        allItems.addAll(user.getRole().getSrcs()) ;
+        roleItems(role,allItems) ;
         return role ;
     }
-    private void roleItems(List<VOOutMenu> lst,Long fid,Lgn_Role role) {
-        for(Lgn_Item item :role.getSrcs()){
-            if(item.getFatherId()!=null&&(item.getFatherId().longValue()==fid.longValue())){
-                VOOutMenu menu = new VOOutMenu(item.getSrc(),item.getC_text(),item.getTip()) ;
-                lst.add(menu) ;
-                roleItems(menu.getChild(),fid+1,role);
+    private void roleItems(VOOutMenu menu,List<Lgn_Item> allItems) {
+        for(Lgn_Item item :allItems){
+            if(item.getFatherId().longValue()==menu.getFatherId().longValue()){
+                VOOutMenu nMenu = new VOOutMenu(item.getSrc(),item.getC_text(),item.getTip(),item.getId()) ;
+                menu.getChild().add(nMenu) ;
+                roleItems(nMenu,allItems);
             }
         }
     }

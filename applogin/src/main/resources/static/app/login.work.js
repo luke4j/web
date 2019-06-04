@@ -18,7 +18,7 @@ define(function(require) {
             this.dv_head = $("<div class='layui-header'>") ;
             this.dv_menu_scroll = $("<div>").addClass("layui-side-scroll") ;
             this.dv_menu = $("<div>").addClass("layui-side layui-bg-black").append(this.dv_menu_scroll) ;
-            this.dv_body = $("<div>").addClass("layui-body") ;
+            this.dv_body = $("<div>").addClass("layui-body").attr("id","dv_main_body") ;
             this.dv_footer = $("<div>").addClass("layui-footer") ;
             this.$el.append(this.dv_head).append(this.dv_menu).append(this.dv_body).append(this.dv_footer)  ;
             this.addHead() ;
@@ -186,7 +186,9 @@ define(function(require) {
             if($item.attr("jsurl")){
                 require([$item.attr("jsurl")],function(FunModel){
                     if(FunModel){
-                        new FunModel() ;
+                        $("#dv_main_body").empty() ;
+                        new FunModel({$el:$("#dv_main_body")});
+                        ls.layui_reader() ;
                     }else{
                         layui.use("layer",function(){
                             var layer = layui.layer ;

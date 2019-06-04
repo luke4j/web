@@ -1,7 +1,7 @@
 
 
 -- 登录名admin  登录密码admin
-insert u_staff(b_is_del,b_wtime,brithday,login_name,name,password,sex) values(false,now(),'1984-01-01','admin','于洋','21232f297a57a5a743894a0e4a801fc3','男');
+insert u_staff(b_is_del,b_wtime,brithday,login_name,name,password,sex,role_id) values(false,now(),'1984-01-01','admin','于洋','21232f297a57a5a743894a0e4a801fc3','男',1);
 
 delete from lgn_role ;
 insert into lgn_role (id,b_is_del,b_wtime,name)values(1,false,now(),'admin') ;
@@ -28,4 +28,3 @@ insert into lgn_role_item (role_id,item_id) values
 (1,5),
 (1,6),
 (1,7) ;
-update u_staff set role_id = 1 where id = 1 ;

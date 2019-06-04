@@ -12,6 +12,7 @@ public class Lgn_Role extends _M{
 
     /**角色对应的权限*/
     @ManyToMany(fetch = FetchType.EAGER)
+    @OrderBy("p_bm asc")
     @JoinTable(name = "lgn_role_item",
             joinColumns = @JoinColumn(name = "roleId"),
             inverseJoinColumns = @JoinColumn(name = "itemId")
