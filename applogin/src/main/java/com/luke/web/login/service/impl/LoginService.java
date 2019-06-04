@@ -4,10 +4,12 @@ import com.luke.web.login.dao.ILoginDao;
 import com.luke.web.login.service.ILoginService;
 import com.luke.web.model.Lgn_Item;
 import com.luke.web.model.Lgn_Msg;
+import com.luke.web.model.Lgn_Role;
 import com.luke.web.model.U_Staff;
 import com.luke.web.tool.LK;
 import com.luke.web.tool.exception.AppException;
 import com.luke.web.tool.web.ActResult;
+import com.luke.web.vo.VOIn;
 import com.luke.web.vo.VOOut;
 import com.luke.web.vo.login.*;
 import org.slf4j.Logger;
@@ -92,5 +94,13 @@ public class LoginService implements ILoginService {
         this.loginDao.delToken(vo.getLoginTuken()) ;
 
         user.setPassword(vo.getPasswordNew());
+    }
+
+    @Override
+    public VOOutMenu getRole(VOIn vo, ActResult<VOOutMenu> actResult) throws AppException {
+        String json = this.loginDao.getTokenIsValid(vo.getLoginTuken()) ;
+        VOoutInfo outInfo = LK.StrJson2Obj(json,VOoutInfo.class) ;
+        VOOutMenu role = this.loginDao.getRole(outInfo.getStaffId()) ;
+        return role;
     }
 }

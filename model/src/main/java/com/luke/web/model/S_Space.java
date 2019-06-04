@@ -27,11 +27,9 @@ public class S_Space extends _M {
     U_Staff staff ;
 
     /**上级单位*/
-    @ManyToOne
-    @JoinColumn(name = "upSpaceId")
-    S_Space upSpace ;
+    Long fatherId ;
 
-    @OneToMany(mappedBy = "upSpace")
+    @Transient
     List<S_Space> child ;
 
     public List<S_Space> getChild() {
@@ -82,11 +80,11 @@ public class S_Space extends _M {
         this.staff = staff;
     }
 
-    public S_Space getUpSpace() {
-        return upSpace;
+    public Long getUpSpace() {
+        return fatherId;
     }
 
-    public void setUpSpace(S_Space upSpace) {
-        this.upSpace = upSpace;
+    public void setUpSpace(Long fatherId) {
+        this.fatherId = fatherId;
     }
 }

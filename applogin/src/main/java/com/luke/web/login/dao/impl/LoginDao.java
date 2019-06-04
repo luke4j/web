@@ -1,16 +1,22 @@
 package com.luke.web.login.dao.impl;
 
 import com.luke.web.login.dao.ILoginDao;
+import com.luke.web.model.Lgn_Item;
+import com.luke.web.model.Lgn_Role;
 import com.luke.web.model.U_Staff;
 import com.luke.web.repo.dao.DBDao;
 import com.luke.web.tool.LK;
 import com.luke.web.tool.LKMap;
 import com.luke.web.tool.exception.AppException;
 import com.luke.web.vo.login.VOInUpdatePwd;
+import com.luke.web.vo.login.VOOutMenu;
 import com.luke.web.vo.login.VOoutInfo;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class LoginDao extends DBDao implements ILoginDao  {
@@ -24,7 +30,7 @@ public class LoginDao extends DBDao implements ILoginDao  {
     }
 
     @Override
-    @CacheEvict(value = "redis-staff",key = "#token")
+//    @CacheEvict(value = "redis-staff",key = "#token")
     public void saveToken(String token, VOoutInfo outInfo) throws AppException {
         this.setRedisValueAndEX(token, LK.ObjToJsonStr(outInfo),60l*4) ;
     }
@@ -43,8 +49,30 @@ public class LoginDao extends DBDao implements ILoginDao  {
     }
 
     @Override
+    @Cacheable(value = "staff",key = "#vo.id")
     public U_Staff getStaff(VOInUpdatePwd vo) throws AppException {
         U_Staff user = this.get(U_Staff.class,vo.getId()) ;
         return user;
     }
+
+    @Override
+    public VOOutMenu getRole(Long staffId) throws AppException {
+        U_Staff user = this.get(U_Staff.class,staffId) ;
+        if(user.getRole()==null)
+            return null ;
+        user.getRole().getSrcs().size() ;
+        VOOutMenu role = new VOOutMenu() ;
+        roleItems(role.getChild(),0l,user.getRole()) ;
+        return role ;
+    }
+    private void roleItems(List<VOOutMenu> lst,Long fid,Lgn_Role role) {
+        for(Lgn_Item item :role.getSrcs()){
+            if(item.getFatherId()!=null&&(item.getFatherId().longValue()==fid.longValue())){
+                VOOutMenu menu = new VOOutMenu(item.getSrc(),item.getC_text(),item.getTip()) ;
+                lst.add(menu) ;
+                roleItems(menu.getChild(),fid+1,role);
+            }
+        }
+    }
+
 }

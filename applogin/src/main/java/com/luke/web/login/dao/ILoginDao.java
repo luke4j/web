@@ -1,8 +1,10 @@
 package com.luke.web.login.dao;
 
+import com.luke.web.model.Lgn_Role;
 import com.luke.web.model.U_Staff;
 import com.luke.web.tool.exception.AppException;
 import com.luke.web.vo.login.VOInUpdatePwd;
+import com.luke.web.vo.login.VOOutMenu;
 import com.luke.web.vo.login.VOoutInfo;
 
 public interface ILoginDao {
@@ -46,4 +48,12 @@ public interface ILoginDao {
      * @throws AppException
      */
     U_Staff getStaff(VOInUpdatePwd vo)throws AppException;
+
+    /**
+     * 查询 权限
+     * @param staffId
+     * @return
+     * @throws AppException
+     */
+    VOOutMenu getRole(Long staffId)throws AppException;
 }

@@ -2,6 +2,7 @@ package com.luke.web.login.controller.impl;
 
 import com.luke.web.login.controller.IWelcomeController;
 import com.luke.web.login.service.ILoginService;
+import com.luke.web.model.Lgn_Role;
 import com.luke.web.tool.LK;
 import com.luke.web.tool.LKMap;
 import com.luke.web.tool.exception.AppException;
@@ -10,6 +11,7 @@ import com.luke.web.vo.VOIn;
 import com.luke.web.vo.VOOut;
 import com.luke.web.vo.login.VOInLogin;
 import com.luke.web.vo.login.VOInUpdatePwd;
+import com.luke.web.vo.login.VOOutMenu;
 import com.luke.web.vo.login.VOoutInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,6 +62,17 @@ public class WelcomeController implements IWelcomeController {
         actResult.setDoing("用户名登录");
         VOoutInfo staff = loginService.findLoginUser(vo,actResult) ;
         actResult.setData(staff);
+        return actResult;
+    }
+
+    @Override
+    public ActResult<VOOutMenu> getRole(HttpServletRequest request, HttpServletResponse response,
+                                        ActResult<VOOutMenu> actResult,
+                                        @Valid VOIn vo, BindingResult result) throws AppException {
+
+        actResult.setDoing("以loginTuken查询权限");
+        VOOutMenu role = loginService.getRole(vo,actResult) ;
+        actResult.setData(role);
         return actResult;
     }
 

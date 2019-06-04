@@ -1,11 +1,13 @@
 package com.luke.web.login.controller;
 
+import com.luke.web.model.Lgn_Role;
 import com.luke.web.tool.exception.AppException;
 import com.luke.web.tool.web.ActResult;
 import com.luke.web.vo.VOIn;
 import com.luke.web.vo.VOOut;
 import com.luke.web.vo.login.VOInLogin;
 import com.luke.web.vo.login.VOInUpdatePwd;
+import com.luke.web.vo.login.VOOutMenu;
 import com.luke.web.vo.login.VOoutInfo;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -46,6 +48,21 @@ public interface IWelcomeController {
                                ActResult<VOoutInfo> actResult,
                                @Valid VOInLogin vo , BindingResult result) throws AppException ;
 
+    /**
+     * loginToken 查询用户权限
+     * @param request
+     * @param response
+     * @param actResult
+     * @param vo
+     * @param result
+     * @return
+     * @throws AppException
+     */
+    @RequestMapping(path = "getRole.act",method = RequestMethod.POST)
+    @ResponseBody
+    ActResult<VOOutMenu> getRole(HttpServletRequest request, HttpServletResponse response,
+                                 ActResult<VOOutMenu> actResult,
+                                 @Valid VOIn vo , BindingResult result) throws AppException ;
     /**
      * token 登录
      * @param request

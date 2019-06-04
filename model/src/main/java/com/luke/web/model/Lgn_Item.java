@@ -18,11 +18,9 @@ public class Lgn_Item extends _M{
     @Column(length = 100)
     String tip ;
 
-    @ManyToOne
-    @JoinColumn(name = "fatherId")
-    Lgn_Item father ;
+    Long fatherId ;
 
-    @OneToMany(mappedBy = "father")
+    @Transient
     List<Lgn_Item> child ;
 
     public Integer getP_bm() {
@@ -65,11 +63,11 @@ public class Lgn_Item extends _M{
         this.tip = tip;
     }
 
-    public Lgn_Item getFather() {
-        return father;
+    public Long getFatherId() {
+        return fatherId;
     }
 
-    public void setFather(Lgn_Item father) {
-        this.father = father;
+    public void setFatherId(Long fatherId) {
+        this.fatherId = fatherId;
     }
 }

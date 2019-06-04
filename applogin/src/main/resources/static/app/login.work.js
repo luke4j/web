@@ -16,7 +16,8 @@ define(function(require) {
         },
         render:function(){
             this.dv_head = $("<div class='layui-header'>") ;
-            this.dv_menu = $("<div>").addClass("layui-side layui-bg-black") ;
+            this.dv_menu_scroll = $("<div>").addClass("layui-side-scroll") ;
+            this.dv_menu = $("<div>").addClass("layui-side layui-bg-black").append(this.dv_menu_scroll) ;
             this.dv_body = $("<div>").addClass("layui-body") ;
             this.dv_footer = $("<div>").addClass("layui-footer") ;
             this.$el.append(this.dv_head).append(this.dv_menu).append(this.dv_body).append(this.dv_footer)  ;
@@ -43,7 +44,8 @@ define(function(require) {
         },
 
         addMenu:function(){
-            this.dv_menu.append() ;
+            var $menu = new ViewMenu().render().$el ;
+            this.dv_menu_scroll.append($menu) ;
         },
         addBody:function(){
             this.dv_body.html("内容默认显示") ;
@@ -66,6 +68,31 @@ define(function(require) {
             }
             date = ls.tm_getCurrentDate(3,this.SystemTime) ;
             return date;
+        }
+    }) ;
+    var ViewMenu = Backbone.View.extend({
+        tagName:"ul",
+        initialize:function(){
+            this.$el.addClass("layui-nav layui-nav-tree").attr("id","ul_menu") ;
+        },
+        render:function(){
+            this.getRole() ;
+            return this ;
+        },
+        getRole:function(){
+            var me = this ;
+            ls.ajax({
+                url:"getRole.act",
+                data:{loginTuken:ls.cookieGetToken()},
+                success:function(resp){
+                    for(var i in resp.data.child){
+                        var child = resp.data.child[i] ;
+                        var menu = new ViewLi({model:new ModelLi(child)}) ;
+                        me.$el.append(menu.$el) ;
+                    }
+                   ls.layui_reader() ;
+                }
+            })
         }
     }) ;
 
@@ -100,7 +127,8 @@ define(function(require) {
 
             var dataUpdatePassword = {text:'修改密码',jsurl:'app/login/updatePassword'} ;
             var dataShowStaffInfo = {text:'个人信息',jsurl:'app/login/showStaffInfo'} ;
-            var dataUser = {model:new ModelLi({text:'用户信息',child:[dataUpdatePassword,dataShowStaffInfo]})} ;
+            var changeStore = {text:'切换站点',jsurl:'app/login/changeStore'} ;
+            var dataUser = {model:new ModelLi({text:'用户信息',child:[dataUpdatePassword,dataShowStaffInfo,changeStore]})} ;
             var vl_userInfo =  new ViewLi(dataUser).setElId("li_userInfo").render() ;
             var $li_userInfo = vl_userInfo.$el  ;
 
@@ -210,9 +238,7 @@ define(function(require) {
     }) ;
 
     $(function(){
-        layui.use('element', function(){
-            var element = layui.element;
-        });
+        ls.layui_reader() ;
         new ViewMainAdmin() ;
     }) ;
 

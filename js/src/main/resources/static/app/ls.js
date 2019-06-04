@@ -6,6 +6,13 @@
 
 var ls = ls||{} ;
 
+ls.layui_reader = function(){
+    layui.use('element', function(){
+        var element = layui.element;
+        element.render() ;
+    });
+} ;
+
 ls.error = function(error){
     layui.use("layer",function(){
         var layer = layui.layer ;

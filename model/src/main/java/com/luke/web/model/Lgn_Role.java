@@ -11,7 +11,7 @@ public class Lgn_Role extends _M{
     String name ;
 
     /**角色对应的权限*/
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "lgn_role_item",
             joinColumns = @JoinColumn(name = "roleId"),
             inverseJoinColumns = @JoinColumn(name = "itemId")
