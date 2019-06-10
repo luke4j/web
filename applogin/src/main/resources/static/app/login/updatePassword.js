@@ -37,7 +37,6 @@ define(function(require) {
         renderForm:function(ui_form,openLayer){
             ui_form.render() ;
             ui_form.on('submit(updatePassword)',function(data){
-
                 return false ;
             }) ;
         }
@@ -51,7 +50,5 @@ define(function(require) {
         }
     }) ;
 
-    return function(){
-        new View() ;
-    } ;
+    return View ;
 }) ;

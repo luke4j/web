@@ -50,6 +50,7 @@ ls.ajax = function(p){
         data:{},//请求发送的参数
         dataType:'json',
         type:'POST',
+        async:true,
         statusCode:{
             404:function(){
                 layui.use("layer",function(){

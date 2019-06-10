@@ -11,6 +11,22 @@
 
     <description>程序管理模块</description>
     <artifactId>admin</artifactId>
-
+    <dependencies>
+        <dependency>
+            <groupId>com.luke</groupId>
+            <artifactId>js</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.luke</groupId>
+            <artifactId>repo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.luke</groupId>
+            <artifactId>tool</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
