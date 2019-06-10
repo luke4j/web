@@ -112,7 +112,7 @@ public class WelcomeController implements IWelcomeController {
         actResult.setDoing("得到程序url路径");
         String contextPath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
         VOOut out = new VOOut() ;
-        out.setInfo(contextPath);
+        out.set_info(contextPath);
         actResult.setData(out);
         return actResult;
     }

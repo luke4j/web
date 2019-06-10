@@ -5,6 +5,24 @@ public class VOInItemTreeNode {
     private String title ;
     private String src ;
     private Long fid ;
+    private Integer p_bm ;
+    private String tip ;
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
+
+    public Integer getP_bm() {
+        return p_bm;
+    }
+
+    public void setP_bm(Integer p_bm) {
+        this.p_bm = p_bm;
+    }
 
     public String getSrc() {
         return src;

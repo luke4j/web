@@ -15,4 +15,6 @@ public class AdminDao  extends DBDao implements IAdminDao {
     public List<Lgn_Item> findAllItemTreeNode() throws AppException {
         return  this.find("From Lgn_Item i ") ;
     }
+
+
 }

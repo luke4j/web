@@ -9,24 +9,24 @@ import io.swagger.annotations.ApiModelProperty;
 @ApiModel
 public class VOOut implements VO {
     @ApiModelProperty(name = "用户目标地址")
-    private String srcUrl ;
+    private String _srcUrl;
 
     @ApiModelProperty(name = "数据中的传回信息")
-    String info ;
+    String _info;
 
-    public String getInfo() {
-        return info;
+    public String get_srcUrl() {
+        return _srcUrl;
     }
 
-    public void setInfo(String info) {
-        this.info = info;
+    public void set_srcUrl(String _srcUrl) {
+        this._srcUrl = _srcUrl;
     }
 
-    public String getSrcUrl() {
-        return srcUrl;
+    public String get_info() {
+        return _info;
     }
 
-    public void setSrcUrl(String srcUrl) {
-        this.srcUrl = srcUrl;
+    public void set_info(String _info) {
+        this._info = _info;
     }
 }

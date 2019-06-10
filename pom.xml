@@ -25,6 +25,7 @@
         <module>process</module>
         <module>tj</module>
         <module>tool</module>
+        <module>app</module>
     </modules>
 
 

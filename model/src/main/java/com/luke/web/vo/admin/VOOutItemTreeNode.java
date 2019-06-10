@@ -9,16 +9,45 @@ public class VOOutItemTreeNode extends VOOut {
 
     public VOOutItemTreeNode (){} ;
 
-    public VOOutItemTreeNode(Long id, String title,String src ) {
+    public VOOutItemTreeNode(Long id, String title,String src ,Long fid,Integer p_bm,String tip) {
         this.id = id;
         this.title = title;
         this.src = src ;
+        this.fid = fid ;
+        this.p_bm = p_bm ;
+        this.tip = tip ;
     }
 
     private Long id ;
     private String title ;
     private String src ;
+    private Long fid ;
+    private Integer p_bm ;
+    private String tip ;
 
+    public Long getFid() {
+        return fid;
+    }
+
+    public void setFid(Long fid) {
+        this.fid = fid;
+    }
+
+    public Integer getP_bm() {
+        return p_bm;
+    }
+
+    public void setP_bm(Integer p_bm) {
+        this.p_bm = p_bm;
+    }
+
+    public String getTip() {
+        return tip;
+    }
+
+    public void setTip(String tip) {
+        this.tip = tip;
+    }
 
     public String getSrc() {
         return src;

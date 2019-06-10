@@ -12,10 +12,11 @@ insert into lgn_item(id,b_is_del,b_wtime,c_text,p_bm,src,tip,father_id)values
 (2,false,now(),'商品信息',101,'app/goods/writeInfo','商品信息录入',1),
 (3,false,now(),'人员信息',102,'app/staff/writeInfo','人员信息录入',1),
 (4,false,now(),'站点信息',103,'app/space/writeInfo','站点信息录入',1) ;
-insert into lgn_item(id,b_is_del,b_wtime,c_text,p_bm,src,tip,father_id)values
 (5,false,now(),'资产登记',200,'','资产登记',0),
 (6,false,now(),'库存登记',200,'','库存登记',5),
 (7,false,now(),'库存盘点',200,'','库存盘点',5);
+(8,false,now(),'程序管理',100,'','程序管理',0),
+(9,false,now(),'功能注册',100,'app/admin/admin','功能注册',8) ;
 select * from lgn_item  order by id;
 
 
@@ -27,4 +28,8 @@ insert into lgn_role_item (role_id,item_id) values
 (1,4),
 (1,5),
 (1,6),
-(1,7) ;
+(1,7),
+(1,8),
+(1,9)
+
+;

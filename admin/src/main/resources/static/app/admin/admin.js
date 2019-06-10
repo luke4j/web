@@ -19,7 +19,8 @@ define(function(require) {
                 var tree = layui.tree  , layer = layui.layer  , util = layui.util ;
                 tree.render({
                     elem: '#itemTree'
-                    ,data: me.data()
+                    ,data: me.getTreeNodesData()
+                    ,id:'itemTree'
                     ,operate:function(obj){
                         // console.dir(obj) ;
                         var type = obj.type; //得到操作类型：add、edit、del
@@ -27,10 +28,10 @@ define(function(require) {
                         var elem = obj.elem; //得到当前节点元素
                         if(type=='add'){
                             // me.save(data) ;
-                        }else if(type=='edit'){
-                            me.treeNodeEdit(data) ;
+                        }else if(type=='update'){
+                            me.treeNodeEdit(obj) ;
                         }else if(type='del'){
-                            me.treeNodeDel(data) ;
+                            me.treeNodeDel(obj) ;
                         }
                     }
                     ,edit: ['add', 'update', 'del'] //操作节点的图标
@@ -41,32 +42,57 @@ define(function(require) {
             }) ;
             return this ;
         },
-        treeNodeEdit:function(data){
+        treeNodeEdit:function(obj){
+            var me = this ;
             var fid = $(obj.elem).parent().parent().attr('data-id') ;
-            $.get("app/login/updatePassword.html",function(html){
+            $.get("app/admin/admin_item.html",function(html){
                 /*加载所需要的layui元素*/
                 layui.use(["layer","form"],function(){
                     var layer = layui.layer ;
                     var form = layui.form;
                     /*打开弹出窗*/
-                    function openLayer(ui_layer,html){
-                        ui_layer.open({
+                    function openLayerIndex(ui_layer,html){
+                        return ui_layer.open({
                             title: '修改功能',
                             btn: [],
-                            area:['400px','350px'],
+                            area:['400px','400px'],
                             content: html
                         });
                     }
-                    var openLayer = openLayer(layer,html) ;
+                    var index = openLayerIndex(layer,html) ;
                     /*渲染form，并给form添加事件*/
-                    function renderForm(ui_form,openLayer){
+                    function renderForm(ui_form,index){
                         ui_form.render() ;
+                        ui_form.val("item_form",{
+                            fid:fid
+                            ,id:obj.data.id
+                            ,src:obj.data.src
+                            ,title:obj.data.title
+                            ,p_bm:obj.data.p_bm
+                            ,tip:obj.data.tip
+                        }) ;
                         ui_form.on('submit(saveItems)',function(data){
+                            me.submit_treeNodeEdit_handler(data.field,openLayerIndex) ;
                             return false ;
                         }) ;
                     }
-                    renderForm(form,openLayer) ;
+                    renderForm(form,index) ;
                 }) ;
+            }) ;
+        },
+        submit_treeNodeEdit_handler:function(data,index){
+            var me = this ;
+            ls.ajax({
+                url:'admin/editTreeNode.act',
+                data:data,
+                success:function(res){
+                    var tree = layui.tree ;
+                    tree.reload('itemTree',{
+                        data: me.getTreeNodesData()
+                        ,id:'itemTree'
+                    }) ;
+                    layui.layer.closeAll() ;
+                }
             }) ;
         },
         treeNodeDel:function(){
@@ -75,7 +101,7 @@ define(function(require) {
                 data:{}
             }) ;
         },
-        data:function(){
+        getTreeNodesData:function(){
             var data;
             ls.ajax({
                 url:'admin/findAllItemTreeNode.act',
