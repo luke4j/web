@@ -39,6 +39,19 @@ ls.alert = function(msg){
     }) ;
 };
 
+ls.confirm = function(msg,yesCallBack){
+    layui.use("layer",function() {
+        var layer = layui.layer;
+        layer.confirm(msg, {icon: 3, title:'提示'}, function(index){
+            //do something
+            yesCallBack() ;
+            layer.close(index);
+        });
+    }) ;
+} ;
+
+ls.empty_function = function(){}
+
 
 
 /**
@@ -112,7 +125,7 @@ ls.getContextPath = function(){
         async:false,
         type:'POST',
         success:function(reps){
-            ls.contextPath = reps.data.info ;
+            ls.contextPath = reps.data._info ;
         }
     }) ;
     return ls.contextPath ;

@@ -26,8 +26,8 @@ public interface IAdminController {
                                               ActResult<VOOutItemTreeNode> actResult,
                                               @Valid VOInItemTreeNode vo , BindingResult result) throws AppException ;
 
-    @RequestMapping(path = "addTreeNode.act",method = RequestMethod.POST)
-    ActResult<VOOutItemTreeNode> addTreeNode(HttpServletRequest request, HttpServletResponse response,
+    @RequestMapping(path = "delTreeNode.act",method = RequestMethod.POST)
+    ActResult<VOOutItemTreeNode> delTreeNode(HttpServletRequest request, HttpServletResponse response,
                                               ActResult<VOOutItemTreeNode> actResult,
                                               @Valid VOInItemTreeNode vo , BindingResult result) throws AppException ;
 

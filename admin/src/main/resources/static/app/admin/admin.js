@@ -35,13 +35,14 @@ define(function(require) {
                         }
                     }
                     ,edit: ['add', 'update', 'del'] //操作节点的图标
-                    // ,click: function(obj){
-                    //     layer.msg(JSON.stringify(obj.data));
-                    // }
+                    ,click: function(obj){
+                        layer.msg(JSON.stringify(obj.data));
+                    }
                 });
             }) ;
             return this ;
         },
+        /**编辑节点*/
         treeNodeEdit:function(obj){
             var me = this ;
             var fid = $(obj.elem).parent().parent().attr('data-id') ;
@@ -80,6 +81,7 @@ define(function(require) {
                 }) ;
             }) ;
         },
+        /**编码提交后台*/
         submit_treeNodeEdit_handler:function(data,index){
             var me = this ;
             ls.ajax({
@@ -95,11 +97,17 @@ define(function(require) {
                 }
             }) ;
         },
-        treeNodeDel:function(){
-            ls.ajax({
-                url:'',
-                data:{}
+        treeNodeDel:function(obj){
+            ls.confirm("是否删除",function(){
+                ls.ajax({
+                    url:'admin/delTreeNode.act',
+                    data:{
+                        id:obj.data.id
+                    },
+                    success:ls.empty_function
+                }) ;
             }) ;
+
         },
         getTreeNodesData:function(){
             var data;

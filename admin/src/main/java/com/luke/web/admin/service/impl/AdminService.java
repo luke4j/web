@@ -62,7 +62,9 @@ public class AdminService implements IAdminService {
     }
 
     @Override
-    public VOOutItemTreeNode addTreeNode(VOInItemTreeNode vo) throws AppException {
-        return null;
+    public VOOutItemTreeNode delTreeNode(VOInItemTreeNode vo) throws AppException {
+        Lgn_Item item = this.adminDao.get(Lgn_Item.class,vo.getId()) ;
+        this.adminDao.delObject(item) ;
+        return this.findAllItemTreeNode(null);
     }
 }

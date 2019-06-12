@@ -43,11 +43,11 @@ public class AdminController implements IAdminController {
     }
 
     @Override
-    public ActResult<VOOutItemTreeNode> addTreeNode(HttpServletRequest request, HttpServletResponse response,
+    public ActResult<VOOutItemTreeNode> delTreeNode(HttpServletRequest request, HttpServletResponse response,
                                                     ActResult<VOOutItemTreeNode> actResult,
                                                     @Valid VOInItemTreeNode vo, BindingResult result) throws AppException {
-        actResult.setDoing("管理员添加程序功能");
-        VOOutItemTreeNode rootNode = this.adminService.addTreeNode(vo);
+        actResult.setDoing("管理员删除程序功能");
+        VOOutItemTreeNode rootNode = this.adminService.delTreeNode(vo);
         actResult.setData(rootNode);
         return actResult;
     }

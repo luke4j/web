@@ -10,5 +10,5 @@ public interface IAdminService {
 
     VOOutItemTreeNode editTreeNode(VOInItemTreeNode vo)throws AppException;
 
-    VOOutItemTreeNode addTreeNode(VOInItemTreeNode vo)throws AppException;
+    VOOutItemTreeNode delTreeNode(VOInItemTreeNode vo)throws AppException;
 }
