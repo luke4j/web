@@ -5,8 +5,8 @@ import com.luke.web.vo.VOIn;
 public class VOInUpdatePwd extends VOIn {
 
     String loginName ;
-    String passowrd ;
-    String passwordNew ;
+    String password ;
+    String newPassword ;
     Long id ;
 
     public Long getId() {
@@ -25,19 +25,19 @@ public class VOInUpdatePwd extends VOIn {
         this.loginName = loginName;
     }
 
-    public String getPassowrd() {
-        return passowrd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassowrd(String passowrd) {
-        this.passowrd = passowrd;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getPasswordNew() {
-        return passwordNew;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setPasswordNew(String passwordNew) {
-        this.passwordNew = passwordNew;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 }

@@ -3,7 +3,10 @@ define(function(require) {
     require("jquery");
     require("backbone");
     require("layui");
+    require('md5');
+
     require('ls');
+
 
     var View = Backbone.View.extend({
         $el:$("#frm_updatePassword"),
@@ -37,6 +40,19 @@ define(function(require) {
         renderForm:function(ui_form,openLayer){
             ui_form.render() ;
             ui_form.on('submit(updatePassword)',function(data){
+                data.field.loginTuken = ls.cookieGetToken() ;
+                data.field.password = hex_md5(data.field.password) ;
+                data.field.newPassword = hex_md5(data.field.newPassword) ;
+                data.field.newPassword2 = hex_md5(data.field.newPassword2) ;
+                ls.ajax({
+                    url:'updatePassword.act'
+                    ,data:data.field
+                    ,success:function(resp){
+                        ls.confirm(resp.msg,function(){
+                            window.location.href = ls.getContextPath() ;
+                        }) ;
+                    }
+                }) ;
                 return false ;
             }) ;
         }

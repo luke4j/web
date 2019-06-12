@@ -24,6 +24,7 @@ public class WebExceptionHandler {
         actionResult.setError(e);
         actionResult.setDoing("请求异常");
         actionResult.setStatus("error-1001");
+        actionResult.setSuccess("false");
         return actionResult ;
     }
 }

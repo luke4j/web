@@ -4,7 +4,6 @@ import com.luke.web.login.dao.ILoginDao;
 import com.luke.web.login.service.ILoginService;
 import com.luke.web.model.Lgn_Item;
 import com.luke.web.model.Lgn_Msg;
-import com.luke.web.model.Lgn_Role;
 import com.luke.web.model.U_Staff;
 import com.luke.web.tool.LK;
 import com.luke.web.tool.exception.AppException;
@@ -15,9 +14,11 @@ import com.luke.web.vo.login.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
 
 @Service
 @CacheConfig
@@ -87,13 +88,15 @@ public class LoginService implements ILoginService {
     }
 
     @Override
+    @Transactional
+    @CacheEvict(value = "staff")
     public void updatePassword(VOInUpdatePwd vo, ActResult<VOOut> actResult)throws AppException {
-        U_Staff user = this.loginDao.getStaff(vo) ;
+        U_Staff user = this.loginDao.getLoginUser(vo.getLoginTuken()) ;
         if(user==null) throw AppException.create("登录","ID查询不到操作者") ;
-        if(!user.getPassword().equals(vo.getPassowrd())) throw AppException.create("登录","原密码不正确") ;
+        if(!user.getPassword().equals(vo.getPassword())) throw AppException.create("登录","原密码不正确") ;
         this.loginDao.delToken(vo.getLoginTuken()) ;
 
-        user.setPassword(vo.getPasswordNew());
+        user.setPassword(vo.getNewPassword());
     }
 
     @Override
