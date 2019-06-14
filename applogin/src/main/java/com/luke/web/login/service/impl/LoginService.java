@@ -89,7 +89,6 @@ public class LoginService implements ILoginService {
 
     @Override
     @Transactional
-    @CacheEvict(value = "staff")
     public void updatePassword(VOInUpdatePwd vo, ActResult<VOOut> actResult)throws AppException {
         U_Staff user = this.loginDao.getLoginUser(vo.getLoginTuken()) ;
         if(user==null) throw AppException.create("登录","ID查询不到操作者") ;

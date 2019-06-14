@@ -22,7 +22,7 @@ import java.util.List;
 public class LoginDao extends DBDao implements ILoginDao  {
 
     @Override
-    @Cacheable(value = "staff",key = "#loginName+'_'+#password")
+//    @Cacheable(value = "staff",key = "#loginName+'_'+#password")
     public U_Staff findStaffByNamePassword(String loginName, String password) throws AppException {
         U_Staff u_staff = this.getUnique("From U_Staff u where u.loginName=:loginName and u.password=:password",
                 new LKMap<String,Object>().put1("loginName",loginName).put1("password",password)) ;
@@ -30,26 +30,26 @@ public class LoginDao extends DBDao implements ILoginDao  {
     }
 
     @Override
-    @Cacheable(value = "redis-staff",key = "#token")
+//    @Cacheable(value = "redis-staff",key = "#token")
     public void saveToken(String token, VOoutInfo outInfo) throws AppException {
         this.setRedisValueAndEX(token, LK.ObjToJsonStr(outInfo),60l*4) ;
     }
 
     @Override
-    @Cacheable(value = "redis-staff",key = "#loginTuken")
+//    @Cacheable(value = "redis-staff",key = "#loginTuken")
     public String getTokenIsValid(String loginTuken) throws AppException {
         String usreInfo = this.getRedisValue(loginTuken) ;
         return usreInfo;
     }
 
     @Override
-    @CacheEvict(value = "redis-staff",key = "#loginTuken")
+//    @CacheEvict(value = "redis-staff",key = "#loginTuken")
     public void delToken(String loginTuken) throws AppException {
         this.delRedisValueByKey(loginTuken) ;
     }
 
     @Override
-    @Cacheable(value = "staff",key = "#vo.id")
+//    @Cacheable(value = "staff",key = "#vo.id")
     public U_Staff getStaff(VOInUpdatePwd vo) throws AppException {
         U_Staff user = this.get(U_Staff.class,vo.getId()) ;
         return user;
