@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <description>程序管理模块</description>
+    <description>   程序管理模块</description>
     <artifactId>luke-admin</artifactId>
     <dependencies>
         <dependency>
