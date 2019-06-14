@@ -1,4 +1,4 @@
-package com.luke.web.space;
+package com.luke.web.store;
 
 
 import org.springframework.boot.SpringApplication;
@@ -7,9 +7,8 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
 @EnableCaching
-public class AppSpace {
-
+public class AppStore {
     public static void main(String[] args) {
-        SpringApplication.run(AppSpace.class,args) ;
+        SpringApplication.run(AppStore.class,args) ;
     }
 }

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <description>销售模块，购物车，销售信息</description>
-    <artifactId>sell</artifactId>
+    <artifactId>luke-sell</artifactId>
 
 
 </project>

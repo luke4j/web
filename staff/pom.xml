@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <description>员工，操作者模块</description>
-    <artifactId>staff</artifactId>
+    <artifactId>luke-staff</artifactId>
 
 
 </project>

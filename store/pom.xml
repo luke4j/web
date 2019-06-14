@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <description>库存，进货，出货</description>
-    <artifactId>store</artifactId>
+    <artifactId>luke-store</artifactId>
 
 
 </project>

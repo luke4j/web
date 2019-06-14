@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <description>配送</description>
-    <artifactId>distribution</artifactId>
+    <artifactId>luke-distribution</artifactId>
 
 
 </project>

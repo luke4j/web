@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <description>顾客维护，意向顾客，回访</description>
-    <artifactId>customer-uphold</artifactId>
+    <artifactId>luke-customer-uphold</artifactId>
 
 
 </project>

@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <description>顾客模块，基本信息，验光信息，</description>
-    <artifactId>customer</artifactId>
+    <artifactId>luke-customer</artifactId>
 
 
 </project>

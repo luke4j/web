@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <description>商品信息模块</description>
-    <artifactId>goods</artifactId>
+    <artifactId>luke-goods</artifactId>
 
 
 </project>
