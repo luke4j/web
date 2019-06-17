@@ -1,5 +1,4 @@
 package com.luke.web.vo.login;
-
 import com.luke.web.vo.VOIn;
 
 public class VOInUpdatePwd extends VOIn {

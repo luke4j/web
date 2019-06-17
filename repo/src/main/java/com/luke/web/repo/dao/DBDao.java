@@ -1,6 +1,5 @@
 package com.luke.web.repo.dao;
 
-import com.luke.web.model.U_Staff;
 import com.luke.web.model._M;
 import com.luke.web.tool.Assertion;
 import com.luke.web.tool.LK;
@@ -8,7 +7,7 @@ import com.luke.web.tool.LKMap;
 import com.luke.web.tool.exception.AppException;
 import com.luke.web.vo.Page;
 import com.luke.web.vo.VORedisUser;
-import com.luke.web.vo.login.VOoutInfo;
+import com.luke.web.vo.VOUser;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -537,15 +536,6 @@ public class DBDao {
 
     }
 
-    public U_Staff getLoginUser(String token) throws AppException{
-        String usreInfo = this.getRedisValue(token) ;
-        if(LK.StrIsEmpty(usreInfo))
-            throw AppException.create("DBDao","token 已过期") ;
-        VOoutInfo outInfo = LK.StrJson2Obj(usreInfo,VOoutInfo.class) ;
-        U_Staff user = this.get(U_Staff.class,outInfo.getStaffId()) ;
-        if(LK.ObjIsNull(user))
-            throw AppException.create("DBDao","非法用户") ;
-        return user ;
-    }
+
 
 }

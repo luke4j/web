@@ -11,34 +11,34 @@
 
     <artifactId>luke-app</artifactId>
 
-    <dependencies>
-        <dependency>
-            <groupId>com.luke</groupId>
-            <artifactId>luke-model</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.luke</groupId>
-            <artifactId>luke-repo</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.luke</groupId>
-            <artifactId>luke-tool</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+    <!--<dependencies>-->
+        <!--<dependency>-->
+            <!--<groupId>com.luke</groupId>-->
+            <!--<artifactId>luke-model</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.luke</groupId>-->
+            <!--<artifactId>luke-repo</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.luke</groupId>-->
+            <!--<artifactId>luke-tool</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
 
-        <dependency>
-            <groupId>com.luke</groupId>
-            <artifactId>luke-applogin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>com.luke</groupId>
-            <artifactId>luke-admin</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-    </dependencies>
+        <!--<dependency>-->
+            <!--<groupId>com.luke</groupId>-->
+            <!--<artifactId>luke-applogin</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+            <!--<groupId>com.luke</groupId>-->
+            <!--<artifactId>luke-admin</artifactId>-->
+            <!--<version>1.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
+    <!--</dependencies>-->
 
 
 </project>

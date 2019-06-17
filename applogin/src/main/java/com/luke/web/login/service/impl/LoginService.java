@@ -10,6 +10,7 @@ import com.luke.web.tool.exception.AppException;
 import com.luke.web.tool.web.ActResult;
 import com.luke.web.vo.VOIn;
 import com.luke.web.vo.VOOut;
+import com.luke.web.vo.VORedisUser;
 import com.luke.web.vo.login.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,12 +91,15 @@ public class LoginService implements ILoginService {
     @Override
     @Transactional
     public void updatePassword(VOInUpdatePwd vo, ActResult<VOOut> actResult)throws AppException {
-        U_Staff user = this.loginDao.getLoginUser(vo.getLoginTuken()) ;
-        if(user==null) throw AppException.create("登录","ID查询不到操作者") ;
-        if(!user.getPassword().equals(vo.getPassword())) throw AppException.create("登录","原密码不正确") ;
-        this.loginDao.delToken(vo.getLoginTuken()) ;
+        VORedisUser user = this.loginDao.getRedisUser(vo.getLoginTuken()) ;
+        if(user==null) throw AppException.create("登录异常","登录超时")  ;
 
-        user.setPassword(vo.getNewPassword());
+        U_Staff staff = this.loginDao.get(U_Staff.class,user.getId()) ;
+        if(staff==null) throw AppException.create("登录","ID查询不到操作者") ;
+
+        if(!staff.getPassword().equals(vo.getPassword())) throw AppException.create("修改密码","原密码不正确") ;
+        this.loginDao.delToken(vo.getLoginTuken()) ;
+        staff.setPassword(vo.getNewPassword());
     }
 
     @Override

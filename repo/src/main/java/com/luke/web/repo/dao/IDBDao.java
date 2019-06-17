@@ -1,6 +1,5 @@
 package com.luke.web.repo.dao;
 
-import com.luke.web.model.U_Staff;
 import com.luke.web.tool.exception.AppException;
 import com.luke.web.vo.Page;
 import com.luke.web.vo.VORedisUser;
@@ -227,5 +226,4 @@ import java.util.List;
      <T> T delObject(T obj) throws AppException;
 
 
-     U_Staff getLoginUser(String token) throws AppException;
 }
