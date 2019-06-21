@@ -2,13 +2,11 @@ package com.luke.web.login.controller.impl;
 
 import com.luke.web.login.controller.IWelcomeController;
 import com.luke.web.login.service.ILoginService;
-import com.luke.web.model.Lgn_Role;
 import com.luke.web.tool.LK;
-import com.luke.web.tool.LKMap;
 import com.luke.web.tool.exception.AppException;
 import com.luke.web.tool.web.ActResult;
-import com.luke.web.vo.VOIn;
-import com.luke.web.vo.VOOut;
+import com.luke.web.tool.vo.VOIn;
+import com.luke.web.tool.vo.VOOut;
 import com.luke.web.vo.login.VOInLogin;
 import com.luke.web.vo.login.VOInUpdatePwd;
 import com.luke.web.vo.login.VOOutMenu;

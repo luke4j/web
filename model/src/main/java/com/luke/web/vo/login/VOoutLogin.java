@@ -1,6 +1,7 @@
 package com.luke.web.vo.login;
 
-import com.luke.web.vo.VOOut;
+
+import com.luke.web.tool.vo.VOOut;
 
 public class VOoutLogin extends VOOut {
 

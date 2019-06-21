@@ -1,10 +1,9 @@
 package com.luke.web.vo.login;
 
-import com.luke.web.vo.VOIn;
+import com.luke.web.tool.vo.VOIn;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-import javax.validation.constraints.NotEmpty;
 
 @ApiModel
 public class VOInLogin extends VOIn {

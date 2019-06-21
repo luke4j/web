@@ -1,13 +1,12 @@
 package com.luke.web.repo.dao;
 
-import com.luke.web.model._M;
+import com.luke.web.tool.model._M;
 import com.luke.web.tool.Assertion;
 import com.luke.web.tool.LK;
 import com.luke.web.tool.LKMap;
 import com.luke.web.tool.exception.AppException;
-import com.luke.web.vo.Page;
-import com.luke.web.vo.VORedisUser;
-import com.luke.web.vo.VOUser;
+import com.luke.web.tool.vo.Page;
+import com.luke.web.tool.vo.VORedisUser;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

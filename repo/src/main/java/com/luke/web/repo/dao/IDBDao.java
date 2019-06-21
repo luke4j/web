@@ -1,8 +1,8 @@
 package com.luke.web.repo.dao;
 
 import com.luke.web.tool.exception.AppException;
-import com.luke.web.vo.Page;
-import com.luke.web.vo.VORedisUser;
+import com.luke.web.tool.vo.Page;
+import com.luke.web.tool.vo.VORedisUser;
 
 import java.util.List;
 

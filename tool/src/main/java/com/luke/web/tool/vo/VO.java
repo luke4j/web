@@ -1,4 +1,4 @@
-package com.luke.web.vo;
+package com.luke.web.tool.vo;
 
 import io.swagger.annotations.ApiModel;
 

@@ -1,6 +1,7 @@
 package com.luke.web.vo.login;
 
-import com.luke.web.vo.VOOut;
+
+import com.luke.web.tool.vo.VOOut;
 
 import java.util.ArrayList;
 import java.util.List;

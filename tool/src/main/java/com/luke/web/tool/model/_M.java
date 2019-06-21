@@ -1,4 +1,4 @@
-package com.luke.web.model;
+package com.luke.web.tool.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,7 +1,7 @@
 package com.luke.web.vo.login;
 
 import com.luke.web.model.Lgn_Item;
-import com.luke.web.vo.VOOut;
+import com.luke.web.tool.vo.VOOut;
 import org.springframework.beans.BeanUtils;
 
 import java.util.ArrayList;
