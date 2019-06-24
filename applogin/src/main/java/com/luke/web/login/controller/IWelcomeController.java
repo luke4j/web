@@ -114,4 +114,5 @@ public interface IWelcomeController {
     @ResponseBody
     ActResult<VOOut> getAppRootUrl( HttpServletRequest request, HttpServletResponse response,ActResult<VOOut> actResult) throws AppException ;
 
+
 }

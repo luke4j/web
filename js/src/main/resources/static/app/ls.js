@@ -6,6 +6,10 @@
 
 var ls = ls||{} ;
 
+ls.getMainBody = function(){
+   return $("#dv_main_body") ;
+} ;
+
 ls.layui_reader = function(){
     layui.use('element', function(){
         var element = layui.element;
